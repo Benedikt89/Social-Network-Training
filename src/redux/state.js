@@ -6,7 +6,6 @@ let rerenderEntireTree = () => {
 
 export const subscribe = (observer) => {
     rerenderEntireTree = observer;
-    //pattern observer
 };
 
 let state = {
@@ -129,14 +128,19 @@ let state = {
 
     ],
     newPostText: [''],
+    newMessageText:[''],
 
 
 };
 
+export let textFieldMessage = (text) => {
+    state.newMessageText = text;
+    rerenderEntireTree(state);
+}
+
 export const textHolder = (text) => {
     state.newPostText = text;
-    console.log(text);
-    rerenderEntireTree();
+    rerenderEntireTree(state);
 };
 
 export const addNewPost = () => {
@@ -148,25 +152,20 @@ export const addNewPost = () => {
 
     state.myFeed.unshift(newPost);
 
-    rerenderEntireTree();
+    rerenderEntireTree(state);
 };
 
-export const sendNewMessage = (text) => {
+export const sendNewMessage = () => {
     let newMessage = {
         id: state.messages.length + 1001,
         userId: 1,
-        messageContent: text,
+        messageContent: state.newMessageText,
         avatarImage: 'https://playjoor.com/assets/avatar/jenny.jpg',
     };
 
     state.messages.unshift(newMessage);
-
-    rerenderEntireTree();
-
-    // let newMessages = [...state.messages, newMessage];
-    // state.setState( {
-    //     messages: newMessages
-    // });
+    state.newMessageText = '';
+    rerenderEntireTree(state);
 
 };
 

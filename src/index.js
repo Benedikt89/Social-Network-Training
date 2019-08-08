@@ -9,7 +9,8 @@ import {
     addNewPost,
     sendNewMessage,
     textHolder,
-    subscribe
+    subscribe,
+    textFieldMessage
 } from "./redux/state";
 
 import {BrowserRouter} from "react-router-dom";
@@ -22,6 +23,7 @@ let rerenderEntireTree = (state) => {
                  addNewPost={addNewPost}
                  sendNewMessage={sendNewMessage}
                  textHolder={textHolder}
+                 textFieldMessage={textFieldMessage}
             />
         </BrowserRouter>, document.getElementById('root')
     );

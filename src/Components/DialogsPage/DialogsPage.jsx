@@ -14,6 +14,8 @@ import CurrentDialog from "./CurrentDialog/CurrentDialog";
 
                 <DialogList users={props.users}/>
                 <CurrentDialog
+                    textFieldMessage={props.textFieldMessage}
+                    newMessageText={props.newMessageText}
                     sendNewMessage={props.sendNewMessage}
                     messages={props.messages}/>
 
