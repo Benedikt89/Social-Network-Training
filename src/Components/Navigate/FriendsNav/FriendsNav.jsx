@@ -4,10 +4,6 @@ import style from "./FriendsNav.module.css"
 
 const FriendsNav = (props) => {
 
-
-
-
-
     return (
         <div className={style.friendsBlock}>
 

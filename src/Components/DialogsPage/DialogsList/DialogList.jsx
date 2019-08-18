@@ -5,13 +5,12 @@ import DialogItem from "./DialogItem/DialogItem";
 const DialogList = (props) => {
 
         let DialogsItems = props.users.map(dialog =>
-            <li>
+            <li key={dialog.id + 10}>
                 <DialogItem
                     name={dialog.name}
-                    id={dialog.id}
                     avatarImg={dialog.avatarImage}
                 />
-            </li>)
+            </li>);
 
 
         return (

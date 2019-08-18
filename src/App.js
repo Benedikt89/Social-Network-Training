@@ -12,34 +12,25 @@ import Settings from "./Components/Settings/Settings";
 import Friends from "./Components/Friends/Friends";
 
 
+
 const App = (props) => {
 
- //   let asd = props.appState.messages;
 
     return (
-
+        <div className='fullOnImage'>
             <div className='appWrapper'>
+
                 <Header/>
-                <Navigate friends={props.state.users}/>
+                <Navigate />
 
                 <main className='appContent'>
 
                     <Route path="/DialogsPage"
-                           render={() => <DialogsPage
-                               sendNewMessage={props.sendNewMessage}
-                               textFieldMessage={props.textFieldMessage}
-                               newMessageText={props.state.newMessageText}
-                               users={props.state.users}
-                               messages={props.state.messages}/>}/>
+                           render={() => <DialogsPage />}/>
 
                     <Route path="/Profile"
-                           render={() => <Profile
-                               profileInfo ={props.users}
-                               myFeed={props.state.myFeed}
-                               newPostText={props.state.newPostText}
-                               addNewPost={props.addNewPost}
-                               textHolder={props.textHolder}
-                           />}/>
+                           render={() => <Profile />}/>
+
                     <Route path="/News" render={() => <News/>}/>
                     <Route path="/Music" component={Music}/>
                     <Route path="/Friends" component={Friends}/>
@@ -49,7 +40,7 @@ const App = (props) => {
                 </main>
 
                 <Footer/>
-
+                </div>
             </div>
 
     );

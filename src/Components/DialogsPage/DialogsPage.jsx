@@ -1,7 +1,8 @@
 import React from 'react';
 import style from './DialogsPage.module.css';
-import DialogList from "./DialogsList/DialogList";
-import CurrentDialog from "./CurrentDialog/CurrentDialog";
+import CurrentDialogContainer from "./CurrentDialog/CurrentDialogConainer";
+import DialogListContainer from "./DialogsList/DialogListContainer";
+import StoreContext from "../../StoreContext";
 
 
 
@@ -9,20 +10,12 @@ import CurrentDialog from "./CurrentDialog/CurrentDialog";
 
 
         return (
-            <div className={style.DialogPage}>
-
-
-                <DialogList users={props.users}/>
-                <CurrentDialog
-                    textFieldMessage={props.textFieldMessage}
-                    newMessageText={props.newMessageText}
-                    sendNewMessage={props.sendNewMessage}
-                    messages={props.messages}/>
-
-
-            </div>
+                    <div className={style.DialogPage}>
+                        <DialogListContainer/>
+                        <CurrentDialogContainer/>
+                    </div>
         );
-    }
+    };
 
 
 export default DialogsPage;

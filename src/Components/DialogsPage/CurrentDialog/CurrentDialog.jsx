@@ -6,14 +6,18 @@ const CurrentDialog = (props) => {
 
     let newMessageElement = React.createRef();
 
-    let messageTextChange = () => {
+    let onMessageTextChange = () => {
         let text = newMessageElement.current.value;
-        props.textFieldMessage(text);
+        props.messageTextChange(text);
     };
 
+    let onSendMessage = () => {props.sendMessage();};
+
     let currentMessages = props.messages.map(unit =>
-        <Message messageContent={unit.messageContent}
-                 avatarImage={unit.avatarImage}
+        <Message
+            key={unit.id}
+            messageContent={unit.messageContent}
+            avatarImage={unit.avatarImage}
         />);
 
     return (
@@ -25,7 +29,7 @@ const CurrentDialog = (props) => {
                 </div>
 
                 <textarea
-                    onChange={messageTextChange}
+                    onChange={onMessageTextChange}
                     value={props.newMessageText}
                     className={style.textArea}
                     ref={newMessageElement}
@@ -33,7 +37,7 @@ const CurrentDialog = (props) => {
 
 
                 <div className={style.buttons}>
-                    <button onClick={() => {props.sendNewMessage()}} className={style.sendB} >Send</button>
+                    <button onClick={onSendMessage} className={style.sendB} >Send</button>
                     <button className={style.attachB}>Attach</button>
                 </div>
             </div>

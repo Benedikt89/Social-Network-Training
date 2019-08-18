@@ -2,7 +2,7 @@
 .newPost {
     margin: auto;
     max-width: 900px;
-    background-color: rgba(8, 20, 46, 0.9);
+    background-color: rgba(8, 20, 46, 0.3);
     border: 1px solid #212941;
     border-radius: 5px;
     padding: 8px 15px;
@@ -14,6 +14,7 @@
             "avatar text"
             "avatar button";
     display: grid;
+    grid-gap: 10px;
 }
 
 .avatar {
@@ -30,12 +31,20 @@
 
 
 .text {
+    background-color: rgba(0, 00, 01, 0.8);
+    color: white;
     grid-area: text;
     border-radius: 5px;
     border-spacing: 200px;
 }
 
 .button {
+    width: 80px;
+    padding: 5px;
+    background-color: black;
+    color: white;
+    border: white solid 1px;
+    border-radius: 4px;
     grid-area: button;
 
 }
