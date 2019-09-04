@@ -30,13 +30,15 @@ let initialState = {
 };
 
 const feedReducer = (state = initialState, action) => {
+
     switch (action.type) {
-        case TEXT_FIELD_POST_CHANGE: {
-            let stateCopy = {...state};
-            stateCopy.newPostText = action.text;
-            return stateCopy;
-        }
-        case ADD_POST: {
+        case TEXT_FIELD_POST_CHANGE:
+            return {
+                ...state,
+                newPostText: action.text
+            };
+
+        case ADD_POST:
             let newPost = {
                 id: state.myFeed.length + 9001,
                 userId: 1,
@@ -44,26 +46,25 @@ const feedReducer = (state = initialState, action) => {
                 likeCount: 0,
                 avatarImage: 'https://www.w3schools.com/howto/img_avatar2.png'
             };
-            let stateCopy = {...state};
-            stateCopy.myFeed = [...state.myFeed];
-            stateCopy.myFeed.unshift(newPost);
-            stateCopy.newPostText = '';
-            return stateCopy;
-        }
-        default: {
+            return {
+                ...state,
+                myFeed: [newPost, ...state.myFeed],
+                newPostText: '',
+            };
+
+        default:
             return state;
-        }
     }
 };
 
 
 export const addPostActionCreator = () => {
     return ({
-        type: 'ADD-POST'
+        type: ADD_POST
     })
 };
 export const onPostChangeActionCreator = (text) => {
-    return ({type: 'TEXT-FIELD-POST-CHANGE', text: text})
+    return ({type: TEXT_FIELD_POST_CHANGE, text: text})
 };
 
 export default feedReducer;

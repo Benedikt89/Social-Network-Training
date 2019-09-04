@@ -64,7 +64,8 @@ let initialState = {
         {
             id: 1006,
             userId: 2,
-            messageContent: '<img src=\'https://cdn.freelance.ru/img/portfolio/pics/00/37/9B/3644384.jpg?mt=57607de1\' />',
+            messageContent: 'я Печорин предлагает Вам выпечку по оригинальным рецептам, основанных на классической славянской кухне. Тонкое, легкое тесто, много разнообразной начинки, это и есть настоящие, правильные пирожки. Мы предлагаем только свежую выпечку, Всё готовится из свежих, натуральных продуктов, и выпекается непосредственно перед доставкой.\n' +
+                'Вы можете самостоятельно собрать набор из нашего ассортимента для любого случая. Накрыть стол для',
             avatarImage: 'https://www.w3schools.com/howto/img_avatar2.png',
         },
     ],
@@ -73,30 +74,29 @@ let initialState = {
 
 
 const messagesReducer = (state = initialState, action) => {
-
     switch (action.type) {
-        case SEND_NEW_MESSAGE: {
+        case SEND_NEW_MESSAGE:
             let newMessage = {
                 id: state.messages.length + 1001,
                 userId: 1,
                 messageContent: state.newMessageText,
                 avatarImage: 'https://playjoor.com/assets/avatar/jenny.jpg',
             };
-            let stateCopy = {...state};
-            stateCopy.messages = [...state.messages];
-            stateCopy.messages.unshift(newMessage);
-            stateCopy.newMessageText = '';
-            return stateCopy;
-        }
-        case TEXT_FIELD_MESSAGE_CHANGE: {
-            let stateCopy = {...state};
-            stateCopy.newMessageText = action.text;
-            return stateCopy;
-        }
+            return {
+                ...state,
+                messages: [newMessage, ...state.messages],
+                newMessageText: '',
+            };
+
+        case TEXT_FIELD_MESSAGE_CHANGE:
+            return {
+                ...state,
+                newMessageText: action.text
+            };
+
         default:
             return state;
     }
-
 };
 
 

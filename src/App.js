@@ -9,7 +9,7 @@ import DialogsPage from "./Components/DialogsPage/DialogsPage";
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
-import Friends from "./Components/Friends/Friends";
+import FriendsContainer from "./Components/Friends/FriendsContainer";
 
 
 
@@ -33,7 +33,7 @@ const App = (props) => {
 
                     <Route path="/News" render={() => <News/>}/>
                     <Route path="/Music" component={Music}/>
-                    <Route path="/Friends" component={Friends}/>
+                    <Route path="/Friends" component={FriendsContainer}/>
                     <Route path="/Settings" component={Settings}/>
 
 
