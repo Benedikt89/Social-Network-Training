@@ -68,27 +68,31 @@ let initialState = {
             avatarImage: 'https://www.w3schools.com/howto/img_avatar2.png',
         },
     ],
-    newMessageText: [''],
+    newMessageText: '',
 };
 
 
 const messagesReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case SEND_NEW_MESSAGE:
+        case SEND_NEW_MESSAGE: {
             let newMessage = {
                 id: state.messages.length + 1001,
                 userId: 1,
                 messageContent: state.newMessageText,
                 avatarImage: 'https://playjoor.com/assets/avatar/jenny.jpg',
             };
-
-            state.messages.unshift(newMessage);
-            state.newMessageText = '';
-            return state;
-        case TEXT_FIELD_MESSAGE_CHANGE:
-            state.newMessageText = action.text;
-            return state;
+            let stateCopy = {...state};
+            stateCopy.messages = [...state.messages];
+            stateCopy.messages.unshift(newMessage);
+            stateCopy.newMessageText = '';
+            return stateCopy;
+        }
+        case TEXT_FIELD_MESSAGE_CHANGE: {
+            let stateCopy = {...state};
+            stateCopy.newMessageText = action.text;
+            return stateCopy;
+        }
         default:
             return state;
     }

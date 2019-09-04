@@ -1,30 +1,25 @@
 import React from 'react';
 import {sendNewMessageActionCreator, textFieldChangeActionCreator} from "../../../redux/MessagesReducer";
 import CurrentDialog from "./CurrentDialog";
-import StoreContext from "../../../StoreContext";
+import {connect} from "react-redux";
 
-const CurrentDialogContainer = (props) => {
-
-    return (
-        <StoreContext.Consumer>
-            {store => {
-                let state = store.getState().messagesReducer;
-                let messageTextChange = (text) => {
-                    store.dispatch(textFieldChangeActionCreator(text));
-                };
-                let sendMessage = () => {store.dispatch(sendNewMessageActionCreator())};
-
-                return <CurrentDialog
-                    messages={state.messages}
-                    newMessageText={state.newMessageText}
-                    sendMessage={sendMessage}
-                    messageTextChange={messageTextChange}
-                />
-            }
-            }
-        </StoreContext.Consumer>
-    );
+let mapStateToProps = (state) => {
+    return{
+        messages: state.messagesReducer.messages,
+        newMessageText: state.messagesReducer.newMessageText,
+    }
 };
+let mapDispatchToProps = (dispatch) => {
+    return{
+        messageTextChange: (text) => {
+            dispatch(textFieldChangeActionCreator(text))
+        },
+        sendMessage: ()=>{
+            dispatch(sendNewMessageActionCreator())
+        },
+    }
+};
+const CurrentDialogContainer = connect(mapStateToProps, mapDispatchToProps)(CurrentDialog);
 
 
 export default CurrentDialogContainer;

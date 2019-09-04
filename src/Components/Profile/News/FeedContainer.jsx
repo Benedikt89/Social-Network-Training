@@ -1,26 +1,18 @@
 import React from 'react';
-import style from './Feed.module.css'
-import Post from "./Feed-line/Post";
-import NewPost from "./NewPost/NewPost";
 import Feed from "./Feed";
-import StoreContext from "../../../StoreContext";
+import {connect} from "react-redux";
 
-    const FeedContainer = (props) => {
 
-        return (
-
-            <StoreContext.Consumer>
-                { store => {
-                    let state = store.getState();
-
-                    return <Feed
-                        myFeed={state.feedReducer.myFeed}
-                    />
-                }
-                }
-            </StoreContext.Consumer>
-        );
-    };
+let mapStateToProps = (state) => {
+    return{
+        myFeed: state.feedReducer.myFeed
+}
+};
+let mapDispatchToProps = () => {
+    return{
+    }
+};
+const FeedContainer = connect(mapStateToProps, mapDispatchToProps)(Feed);
 
 
 export default FeedContainer;

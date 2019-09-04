@@ -22,7 +22,6 @@ const NewPost = (props) => {
     };
 
     return (
-
             <div className={style.newPost}>
 
                 <div className={style.avatar}>

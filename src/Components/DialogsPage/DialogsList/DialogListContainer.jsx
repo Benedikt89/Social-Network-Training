@@ -1,21 +1,17 @@
 import React from 'react';
 import DialogList from "./DialogList";
-import StoreContext from "../../../StoreContext";
+import {connect} from "react-redux";
 
-const DialogListContainer = (props) => {
 
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-
-                let users = store.getState().messagesReducer.users;
-
-                return <DialogList users={users}/>
-            }
-            }
-        </StoreContext.Consumer>
-    );
+let mapStateToProps = (state) => {
+    return{
+        users: state.messagesReducer.users,
+    }
 };
-
+let mapDispatchToProps = (dispatch) => {
+    return{
+    }
+};
+const DialogListContainer = connect(mapStateToProps, mapDispatchToProps)(DialogList);
 
 export default DialogListContainer;
