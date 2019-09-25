@@ -1,15 +1,15 @@
 import React from 'react';
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import './App.css';
 import Header from "./Components/Header/Header";
 import Navigate from "./Components/Navigate/Navigate";
 import Footer from "./Components/Footer/Footer";
-import Profile from "./Components/Profile/Profile";
 import DialogsPage from "./Components/DialogsPage/DialogsPage";
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import FriendsContainer from "./Components/Friends/FriendsContainer";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
 
 
 
@@ -28,8 +28,8 @@ const App = (props) => {
                     <Route path="/DialogsPage"
                            render={() => <DialogsPage />}/>
 
-                    <Route path="/Profile"
-                           render={() => <Profile />}/>
+                    <Route path="/Profile/:userId?"
+                           render={() => <ProfileContainer />}/>
 
                     <Route path="/News" render={() => <News/>}/>
                     <Route path="/Music" component={Music}/>

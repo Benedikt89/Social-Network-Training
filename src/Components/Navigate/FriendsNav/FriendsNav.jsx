@@ -8,19 +8,19 @@ const FriendsNav = (props) => {
         <div className={style.friendsBlock}>
 
             <div className={style.ava}>
-            <NavLink to="/Profile/userid">
+            <NavLink to="/Profile/55">
                     <img src={props.friends[0].avatarImage}/>
             </NavLink>
             </div>
 
             <div className={style.ava}>
-            <NavLink to="/Profile/userid">
+            <NavLink to="/Profile/2">
                 <img src={props.friends[1].avatarImage}/>
             </NavLink>
             </div>
 
             <div className={style.ava}>
-            <NavLink to="/Profile/userid">
+            <NavLink to="/Profile/888">
                 <img src={props.friends[2].avatarImage}/>
             </NavLink>
             </div>

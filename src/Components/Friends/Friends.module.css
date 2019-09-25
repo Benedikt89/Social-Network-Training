@@ -1,7 +1,17 @@
 .item {
     color: #3dff05;
 }
-
+.pageNumber {
+    color: olive;
+    cursor: pointer;
+    padding: 5px;
+}
+.pageNumberSelected {
+    font-weight: bolder;
+    color: olivedrab;
+    cursor: pointer;
+    padding: 5px;
+}
 /*.Profile{*/
 /*    background-color: #4d7cae;*/
 /*    border: 1px solid #212941;*/

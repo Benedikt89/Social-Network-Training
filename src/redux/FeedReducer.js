@@ -1,7 +1,10 @@
 const ADD_POST = 'ADD-POST';
 const TEXT_FIELD_POST_CHANGE = 'TEXT-FIELD-POST-CHANGE';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
+
 
 let initialState = {
+    profile: {},
     myFeed: [
         {
             id: 9001,
@@ -51,6 +54,11 @@ const feedReducer = (state = initialState, action) => {
                 myFeed: [newPost, ...state.myFeed],
                 newPostText: '',
             };
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile,
+            };
 
         default:
             return state;
@@ -65,6 +73,9 @@ export const addPostActionCreator = () => {
 };
 export const onPostChangeActionCreator = (text) => {
     return ({type: TEXT_FIELD_POST_CHANGE, text: text})
+};
+export const setUserProfile = (profile) => {
+    return ({type: SET_USER_PROFILE, profile: profile })
 };
 
 export default feedReducer;

@@ -1,39 +1,15 @@
 const FOLLOW_USER = 'FOLLOW-USER';
 const UNFOLLOW_USER = 'UNFOLLOW-USER';
 const SET_USERS = 'SET-USERS';
-
+const SELECT_PAGE = 'FRIENDS/SELECT_PAGE';
+const TOGGLE_IS_FETCHING = 'FRIENDS/TOGGLE_IS_FETCHING';
 
 let initialState = {
-    users: [
-        {
-            name: 'Vasya',
-            id: 1,
-            avatarImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUXVCQEfmyIF2ZSm5lw4GJ5BNy-hWEeRA8X0t3MPLGztI__Srv',
-            followed: true,
-        },
-        {
-            name: 'Anya',
-            id: 2,
-            avatarImage: 'https://cdn.freelance.ru/img/portfolio/pics/00/37/9B/3644384.jpg?mt=57607de1',
-            followed: false,
-        },
-        {
-            name: 'Tanya',
-            id: 3,
-            avatarImage: 'https://www.w3schools.com/howto/img_avatar2.png',
-            followed: true,
-        },
-        {
-            name: 'Grigory',
-            id: 4,
-            avatarImage: 'https://playjoor.com/assets/avatar/jenny.jpg',
-            age: 43,
-            birthDate: '25 / 07 / 1987',
-            profession: 'trubouklad4ik',
-            education: 'some school on east',
-            followed: true,
-        },
-    ],
+    users: [],
+    pageSize: 12,
+    totalUsersCount: 88,
+    currentPage: 1,
+    isFetching: false,
 };
 
 const friendsReducer = (state = initialState, action) => {
@@ -57,7 +33,20 @@ const friendsReducer = (state = initialState, action) => {
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users,
+                totalUsersCount: action.totalUsersCount,
+            };
+
+        case SELECT_PAGE:
+            return {
+                ...state,
+                currentPage: action.pageNumber,
+            };
+
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.count,
             };
 
         default:
@@ -66,16 +55,22 @@ const friendsReducer = (state = initialState, action) => {
 };
 
 
-export const followActionCreator = (userId) => {
+export const follow = (userId) => {
     return ({
         type: FOLLOW_USER, userId: userId
     })
 };
-export const unfollowActionCreator = (userId) => {
+export const unFollow = (userId) => {
     return ({type: UNFOLLOW_USER, userId: userId})
 };
-export const setUsersActionCreator = (users) => {
-    return ({type: SET_USERS, users: users})
+export const setUsers = (users, totalUsersCount) => {
+    return ({type: SET_USERS, users: users, totalUsersCount: totalUsersCount})
+};
+export const selectPage = (pageNumber) => {
+    return ({type: SELECT_PAGE, pageNumber: pageNumber})
+};
+export const toggleIsFetching = (count) => {
+    return ({type: TOGGLE_IS_FETCHING, count: count})
 };
 
 

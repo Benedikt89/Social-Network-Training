@@ -8,8 +8,8 @@
     font-size: 22px;
     font-family: roboto;
     grid-template-areas:
-            "ava label"
-            "ava preview";
+            "ava button label preview2"
+            "ava . preview preview3";
     display: grid;
 
 }
@@ -25,9 +25,18 @@
 .Preview {
     grid-area: preview;
     font-size: smaller;
-
 }
-
+.Preview2 {
+    grid-area: preview2;
+    font-size: smaller;
+}
+.Preview3 {
+    grid-area: preview3;
+    font-size: smaller;
+}
+.follow{
+    grid-area: button;
+}
 .Ava {
     margin-right: 10px;
     grid-area: ava;
