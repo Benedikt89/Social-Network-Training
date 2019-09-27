@@ -1,37 +1,33 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    follow,
+    follow, getUsers,
     selectPage,
-    setUsers, toggleIsFetching,
     unFollow
 } from "../../redux/FriendsReducer";
-import * as axios from "axios";
 import Friends from "./Friends";
 import Preloader from "../Common/Preloader";
 
 
 class FriendsAPI extends React.Component {
 
-    componentDidMount() {
-        this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items, response.data.totalCount);
-                this.props.toggleIsFetching(false);
-            })
-    }
-
     pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+
+    componentDidMount() {
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    }
 
     selectPage = (pageNumber) => {
         this.props.selectPage(pageNumber);
-        this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items, response.data.totalCount);
-                this.props.toggleIsFetching(false);
-            })
+        this.props.getUsers(pageNumber, this.props.pageSize);
+    };
+
+    follow = (userId) => {
+        this.props.follow(userId);
+    };
+
+    unFollow = (userId) => {
+        this.props.unFollow(userId);
     };
 
     render() {
@@ -40,12 +36,13 @@ class FriendsAPI extends React.Component {
             <>
                 {this.props.isFetching ? <Preloader/> :
                     <Friends
+                        followUserProgress={this.props.followUserProgress}
                         users={this.props.users}
                         currentPage={this.props.currentPage}
                         pagesCount={this.pagesCount}
                         selectPage={this.selectPage}
-                        followUser={this.props.follow}
-                        unFollow={this.props.unFollow}
+                        followUser={this.follow}
+                        unFollow={this.unFollow}
                     />
                 }
             </>
@@ -61,11 +58,13 @@ let mapStateToProps = (state) => {
         totalUsersCount: state.friendsReducer.totalUsersCount,
         currentPage: state.friendsReducer.currentPage,
         isFetching: state.friendsReducer.isFetching,
+        followUserProgress: state.friendsReducer.followUserProgress,
     }
 };
 
-
-let FriendsContainer = connect(mapStateToProps, {follow, selectPage, unFollow, setUsers, toggleIsFetching})(FriendsAPI);
+let FriendsContainer = connect(mapStateToProps, {
+    follow, selectPage, unFollow,
+    getUsers})(FriendsAPI);
 
 
 export default FriendsContainer;

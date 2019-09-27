@@ -8,10 +8,7 @@ let mapStateToProps = (state) => {
         users: state.messagesReducer.users,
     }
 };
-let mapDispatchToProps = (dispatch) => {
-    return{
-    }
-};
-const DialogListContainer = connect(mapStateToProps, mapDispatchToProps)(DialogList);
+
+const DialogListContainer = connect(mapStateToProps, {})(DialogList);
 
 export default DialogListContainer;

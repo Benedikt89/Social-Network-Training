@@ -1,22 +1,18 @@
 import React from 'react';
 import Profile from "./Profile";
-import * as axios from "axios";
 import {connect} from "react-redux";
-import {setUserProfile} from "../../redux/FeedReducer";
-import {withRouter} from "react-router-dom";
-
+import {uploadUserProfile} from "../../redux/FeedReducer";
+import { withRouter } from "react-router-dom";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
  class ProfileAPI extends React.Component {
 
      componentDidMount() {
          let userId = this.props.match.params.userId;
-         if (userId === undefined) {
+         if (!userId) {
              userId = 1572
          }
-         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/`+ userId)
-             .then(response => {
-                this.props.setUserProfile(response.data);
-             })
+         this.props.uploadUserProfile(userId);
      }
 
      render() {
@@ -34,6 +30,10 @@ import {withRouter} from "react-router-dom";
 
 let ProfileContainerRouted = withRouter(ProfileAPI);
 
-let ProfileContainer = connect(mapStateToProps, {setUserProfile})(ProfileContainerRouted);
+
+let AuthRedirectComponent = withAuthRedirect(ProfileContainerRouted);
+
+
+let ProfileContainer = connect(mapStateToProps, {uploadUserProfile})(AuthRedirectComponent);
 
 export default ProfileContainer;

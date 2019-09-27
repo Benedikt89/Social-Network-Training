@@ -8,7 +8,6 @@ const UserItem = (props) => {
     let path = "/DialogsPage/" + props.id;
     let avatar = props.avatarImg;
     let name = props.name;
-    let followed = props.followed;
 
     return (
         <div to={path} className={style.item}>
@@ -18,8 +17,15 @@ const UserItem = (props) => {
                 </NavLink>
             </div>
             <div className={style.follow}>
-                {!props.followed?<button onClick={()=>{props.followUser(props.id)}}>Follow</button>:
-               <button onClick={()=>{props.unFollow(props.id)}}>UnFollow</button>}
+                {!props.followed?
+                    <button
+                        disabled={props.followUserProgress.some(
+                        id => id === props.id)}
+                            onClick={()=>{props.followUser(props.id)}}>Follow</button>
+                    :<button
+                        disabled={props.followUserProgress.some(
+                            id => id === props.id)}
+                             onClick={()=>{props.unFollow(props.id)}}>UnFollow</button>}
             </div>
             <div className={style.Label}>
                 {name}
@@ -29,7 +35,7 @@ const UserItem = (props) => {
                 {'id ' + props.id}
             </div>
             <div className={style.Preview2}>
-                {followed}
+                {props.status}
             </div>
             <div className={style.Preview3}>
                 {props.age}

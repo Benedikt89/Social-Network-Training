@@ -2,6 +2,7 @@ import React from 'react';
 import style from './Navigate.module.css'
 import {NavLink} from "react-router-dom";
 import FriendsNavContainer from "./FriendsNav/FriendsNavContainer";
+import {connect} from "react-redux";
 
 const Navigate = (props) => {
 
@@ -53,16 +54,30 @@ const Navigate = (props) => {
                 <FriendsNavContainer />
             </div>
 
-            <div className={style.click}>
+            {props.login ? <div className={style.click}>
                 <NavLink to="/Settings" activeClassName={style.active}>
                     <div className={style.item}>
                         Settings
                     </div>
                 </NavLink>
             </div>
+                :<div className={style.click}>
+                <NavLink to="/Login" activeClassName={style.active}>
+                    <div className={style.item}>
+                        Login
+                    </div>
+                </NavLink>
+            </div>}
         </nav>
     );
-}
+};
 
+let mapStateToProps = (state) => {
+    return {
+        login: state.auth.login,
+    }
+};
 
-export default Navigate;
+const NavigateContainer = connect (mapStateToProps, {})( Navigate);
+
+export default NavigateContainer;

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Route} from "react-router-dom";
 import './App.css';
-import Header from "./Components/Header/Header";
 import Navigate from "./Components/Navigate/Navigate";
 import Footer from "./Components/Footer/Footer";
 import DialogsPage from "./Components/DialogsPage/DialogsPage";
@@ -10,6 +9,8 @@ import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import FriendsContainer from "./Components/Friends/FriendsContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
+import HeaderContainer from "./Components/Header/HeaderContainer";
+import Login from "./Components/Login/Login";
 
 
 
@@ -20,7 +21,7 @@ const App = (props) => {
         <div className='fullOnImage'>
             <div className='appWrapper'>
 
-                <Header/>
+                <HeaderContainer/>
                 <Navigate />
 
                 <main className='appContent'>
@@ -35,6 +36,7 @@ const App = (props) => {
                     <Route path="/Music" component={Music}/>
                     <Route path="/Friends" component={FriendsContainer}/>
                     <Route path="/Settings" component={Settings}/>
+                    <Route path="/Login" component={Login}/>
 
 
                 </main>

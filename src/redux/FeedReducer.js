@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const ADD_POST = 'ADD-POST';
 const TEXT_FIELD_POST_CHANGE = 'TEXT-FIELD-POST-CHANGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -74,8 +76,14 @@ export const addPostActionCreator = () => {
 export const onPostChangeActionCreator = (text) => {
     return ({type: TEXT_FIELD_POST_CHANGE, text: text})
 };
-export const setUserProfile = (profile) => {
+export const _setUserProfile = (profile) => {
     return ({type: SET_USER_PROFILE, profile: profile })
+};
+export const uploadUserProfile = (userId) => (dispatch) => {
+    usersAPI.uploadUser(userId)
+        .then(data => {
+            dispatch(_setUserProfile(data));
+        });
 };
 
 export default feedReducer;

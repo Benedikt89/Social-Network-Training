@@ -2,6 +2,7 @@ import React from 'react';
 import style from './DialogsPage.module.css';
 import CurrentDialogContainer from "./CurrentDialog/CurrentDialogConainer";
 import DialogListContainer from "./DialogsList/DialogListContainer";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 
@@ -16,5 +17,6 @@ import DialogListContainer from "./DialogsList/DialogListContainer";
         );
     };
 
+let AuthRedirect = withAuthRedirect(DialogsPage);
 
-export default DialogsPage;
+export default AuthRedirect;

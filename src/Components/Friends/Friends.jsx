@@ -15,6 +15,7 @@ let Friends = (props) => {
                 profession={user.profession}
                 id={user.id}
                 age={user.age}
+                followUserProgress={props.followUserProgress}
                 followUser={props.followUser}
                 unFollow={props.unFollow}
             />

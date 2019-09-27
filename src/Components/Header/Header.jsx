@@ -1,7 +1,8 @@
 import React from 'react';
 import style from './Header.module.css';
+import {NavLink} from "react-router-dom";
 
-const Header = () => {
+const Header = (props) => {
     return (
         <header className={style.Header}>
 
@@ -11,13 +12,15 @@ const Header = () => {
             </div>
 
             <div className={style.links}>
-                <a>Home</a> -
-                <a>Player</a>
+
+                {!props.login ? <NavLink to={'/Login'}>Login</NavLink>
+                    : <span>{props.login}</span>
+                }
 
             </div>
 
         </header>
     );
-}
+};
 
 export default Header;

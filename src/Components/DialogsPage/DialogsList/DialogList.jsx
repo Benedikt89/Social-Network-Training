@@ -12,7 +12,6 @@ const DialogList = (props) => {
                 />
             </li>);
 
-
         return (
 
             <div className={style.DialogList}>

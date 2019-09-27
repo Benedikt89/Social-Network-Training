@@ -5,21 +5,17 @@
     border: 1px solid #0f1cff;
     border-radius: 5px;
     font-size: 22px;
-    font-family: roboto;
     color: #ffffff;
-    text-align: left;
-    display: flex;
-    align-items: center;
-
-    /*grid-template-columns: 60px 1fr;*/
-    /*grid-template-areas:*/
-    /*        "lable ."*/
-    /*        "lable links";*/
-    /*display: grid;*/
+    align-content: center;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 60px 80px 1fr;
+    grid-template-areas: 'lable links .';
 }
 
 
 .links {
+    float: right;
     grid-area: links;
 
 }

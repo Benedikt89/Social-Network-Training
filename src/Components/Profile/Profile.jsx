@@ -4,9 +4,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import FeedContainer from "./News/FeedContainer";
 import Preloader from "../Common/Preloader";
 
-
  const Profile = (props) => {
-
 
         return (
             <div className={style.Profile}>
