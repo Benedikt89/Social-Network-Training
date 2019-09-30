@@ -50,5 +50,17 @@ export const authAPI = {
             .then(res => {
                 return res.data;
             })
-    }
+    },
+    login (data) {
+        return instanse.post(`auth/login/`, {email: data.email, password: data.password, rememberMe: true, captcha: true})
+            .then(res => {
+                return res.data;
+            })
+    },
+    logOut () {
+        return instanse.delete(`auth/login/`)
+            .then(res => {
+                return res.data;
+            })
+    },
 };

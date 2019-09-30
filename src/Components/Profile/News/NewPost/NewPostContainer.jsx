@@ -1,5 +1,5 @@
 import React from 'react';
-import {addPostActionCreator, onPostChangeActionCreator} from "../../../../redux/FeedReducer";
+import {addPost} from "../../../../redux/FeedReducer";
 import NewPost from "./NewPost";
 import {connect} from "react-redux";
 
@@ -9,17 +9,8 @@ let mapStateToProps = (state) => {
         newPostText: state.feedReducer.newPostText,
     }
 };
-let mapDispatchToProps = (dispatch) => {
-    return{
-        postChange: (text) => {
-            dispatch(onPostChangeActionCreator(text));
-        },
-        addPost: () => {
-            dispatch(addPostActionCreator());
-        },
-    }
-};
-const NewPostContainer = connect(mapStateToProps, mapDispatchToProps)(NewPost);
+
+const NewPostContainer = connect(mapStateToProps, {addPost})(NewPost);
 
 
 export default NewPostContainer;

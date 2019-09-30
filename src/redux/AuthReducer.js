@@ -1,6 +1,8 @@
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
+const LOGIN = 'LOGIN';
+const LOG_OUT = 'LOG_OUT';
 
 
 
@@ -17,25 +19,60 @@ const authReducer = (state = initialState, action) => {
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
+                ...action.payload,
+            };
+        case LOGIN:
+            return {
+                ...state,
                 isAuth: true,
             };
-
+        case LOG_OUT:
+            return {
+                ...state,
+                isAuth: false,
+                userId: null,
+                email: null,
+                login: null,
+            };
         default:
             return state;
     }
 };
 
 
-export const _setAuthUserData = (userId, email, login) => {
-    return ({type: SET_USER_DATA, data: [userId, email, login] })
+const _setAuthUserData = (userId, email, login, isAuth) => {
+    return ({type: SET_USER_DATA, payload: {userId, email, login, isAuth} })
 };
+const _login = () => {
+    return ({type: LOGIN})
+};
+
 export const getAuthUserData = () => (dispatch) => {
     authAPI.getAuth()
         .then( data => {
             if (data.resultCode === 0) {
-                let {id, email, login} = data.data;
-                dispatch(_setAuthUserData(id, email, login));
+                dispatch(_setAuthUserData(data.data.id, data.data.email, data.data.login, true));
+            }
+        })
+};
+export const login = (data) => (dispatch) => {
+    authAPI.login(data)
+        .then( res => {
+            if (res.resultCode === 0) {
+                console.log(res);
+                dispatch(_login);
+                getAuthUserData();
+            } else {
+                alert(res.messages)
+            }
+        })
+};
+export const logOut = () => (dispatch) => {
+    authAPI.logOut()
+        .then( res => {
+            if (res.resultCode === 0) {
+                console.log(res);
+                dispatch(_setAuthUserData(null, null, null, false))
             }
         })
 };

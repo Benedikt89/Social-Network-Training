@@ -1,4 +1,3 @@
-const TEXT_FIELD_MESSAGE_CHANGE = 'TEXT-FIELD-MESSAGE-CHANGE';
 const SEND_NEW_MESSAGE = 'SEND-NEW-MESSAGE';
 
 let initialState = {
@@ -69,7 +68,6 @@ let initialState = {
             avatarImage: 'https://www.w3schools.com/howto/img_avatar2.png',
         },
     ],
-    newMessageText: '',
 };
 
 
@@ -79,19 +77,12 @@ const messagesReducer = (state = initialState, action) => {
             let newMessage = {
                 id: state.messages.length + 1001,
                 userId: 1,
-                messageContent: state.newMessageText,
+                messageContent: action.text,
                 avatarImage: 'https://playjoor.com/assets/avatar/jenny.jpg',
             };
             return {
                 ...state,
                 messages: [newMessage, ...state.messages],
-                newMessageText: '',
-            };
-
-        case TEXT_FIELD_MESSAGE_CHANGE:
-            return {
-                ...state,
-                newMessageText: action.text
             };
 
         default:
@@ -99,11 +90,8 @@ const messagesReducer = (state = initialState, action) => {
     }
 };
 
-
-export const textFieldChangeActionCreator = (text) =>
-    ({ type: TEXT_FIELD_MESSAGE_CHANGE, text: text});
-export const sendNewMessageActionCreator = () =>
-    ({ type: SEND_NEW_MESSAGE});
+export const sendNewMessage = (text) =>
+    ({ type: SEND_NEW_MESSAGE, text});
 
 
 export default messagesReducer;

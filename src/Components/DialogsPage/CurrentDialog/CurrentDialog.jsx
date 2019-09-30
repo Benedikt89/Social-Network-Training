@@ -1,17 +1,15 @@
 import React from 'react';
 import style from './CurrentDialog.module.css'
 import Message from "./MessageItem/Message";
+import {Field, reduxForm} from "redux-form";
+
 
 const CurrentDialog = (props) => {
 
-    let newMessageElement = React.createRef();
-
-    let onMessageTextChange = () => {
-        let text = newMessageElement.current.value;
-        props.messageTextChange(text);
+    const onSubmit = (formData) => {
+        console.log(formData);
+        props.sendNewMessage(formData.messageField);
     };
-
-    let onSendMessage = () => {props.sendMessage();};
 
     let currentMessages = props.messages.map(unit =>
         <Message
@@ -28,18 +26,8 @@ const CurrentDialog = (props) => {
                     <img src={props.messages[0].avatarImage} />
                 </div>
 
-                <textarea
-                    onChange={onMessageTextChange}
-                    value={props.newMessageText}
-                    className={style.textArea}
-                    ref={newMessageElement}
-                ></textarea>
+                <MessageReduxForm onSubmit={onSubmit}/>
 
-
-                <div className={style.buttons}>
-                    <button onClick={onSendMessage} className={style.sendB} >Send</button>
-                    <button className={style.attachB}>Attach</button>
-                </div>
             </div>
 
             {currentMessages}
@@ -48,5 +36,21 @@ const CurrentDialog = (props) => {
     );
 };
 
+
+const MessageForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field
+                className={style.textArea}
+                name={"messageField"} component={"input"}
+            />
+            <div className={style.buttons}>
+                <button className={style.sendB} >Send</button>
+            </div>
+        </form>
+    )
+};
+
+const MessageReduxForm = reduxForm({form: 'message'})(MessageForm);
 
 export default CurrentDialog;

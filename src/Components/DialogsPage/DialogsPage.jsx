@@ -18,4 +18,6 @@ import {compose} from "redux";
         );
     };
 
-export default compose(withAuthRedirect)(DialogsPage);
+export default compose(
+    // withAuthRedirect
+)(DialogsPage);

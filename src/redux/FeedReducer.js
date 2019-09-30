@@ -49,7 +49,7 @@ const feedReducer = (state = initialState, action) => {
             let newPost = {
                 id: state.myFeed.length + 9001,
                 userId: 1,
-                content: state.newPostText,
+                content: action.text,
                 likeCount: 0,
                 avatarImage: 'https://www.w3schools.com/howto/img_avatar2.png'
             };
@@ -75,13 +75,10 @@ const feedReducer = (state = initialState, action) => {
 };
 
 
-export const addPostActionCreator = () => {
+export const addPost = (text) => {
     return ({
-        type: ADD_POST
+        type: ADD_POST, text
     })
-};
-export const onPostChangeActionCreator = (text) => {
-    return ({type: TEXT_FIELD_POST_CHANGE, text: text})
 };
 export const _setUserProfile = (profile) => {
     return ({type: SET_USER_PROFILE, profile: profile })

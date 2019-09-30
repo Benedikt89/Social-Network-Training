@@ -4,12 +4,17 @@ import avatarBig from '../../../assets/images/img_avatar_big.png'
 import ProfileInfoStatus from "./ProfileInfoStatus";
 
 const ProfileInfo = (props) => {
+    let avatarImg = avatarBig;
+    if (props.profile.photos !== undefined) {
+        if (props.profile.photos.large !== null) {
+            avatarImg = props.profile.photos.large;
+        }
+    }
+
     return (
         <div className={style.Person}>
             <div className={style.Avatar}>
-                <img src={props.profile.photos !== undefined
-                    ? props.profile.photos.large : avatarBig}/>
-
+                <img src={avatarImg}/>
             </div>
 
             <div className={style.PersonStats}>
@@ -17,11 +22,13 @@ const ProfileInfo = (props) => {
                 <ProfileInfoStatus
                     userId={props.profile.userId}
                     status={props.status}
-                    uploadUserStatus={props.uploadUserStatus}
                     updateUserStatus={props.updateUserStatus}
                 />
                 <p>{props.profile.userId !== undefined ? props.profile.userId : 'userId'}</p>
-                <p>{props.profile.lookingForAJobDescription !== undefined ? props.profile.lookingForAJobDescription: 'discription'}</p>
+                <p>{props.profile.lookingForAJobDescription !== undefined ?
+                        props.profile.lookingForAJobDescription:
+                        'discription'}
+                </p>
             </div>
         </div>
     );
