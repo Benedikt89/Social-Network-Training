@@ -20,9 +20,30 @@ export const usersAPI = {
             });
     },
     uploadUser (userId) {
+        profileAPI.uploadUser(userId);
+        console.error('use old method')
+    },
+};
+
+export const profileAPI = {
+    uploadUser (userId) {
         return instanse.get(`profile/`+ userId)
             .then(res => {
                 return res.data
+            })
+    },
+    uploadStatus (userId) {
+        return instanse.get(`profile/status/`+ userId)
+            .then( res => {
+                if (res.data) {
+                    return res.data
+                }
+            })
+    },
+    updateStatus (status) {
+        return instanse.put(`profile/status/`, {status: status})
+            .then( res => {
+                return res.data.resultCode;
             })
     },
 };

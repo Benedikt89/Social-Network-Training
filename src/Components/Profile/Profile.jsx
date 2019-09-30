@@ -15,7 +15,7 @@ import Preloader from "../Common/Preloader";
                 </div>
 
                 {props.profile === undefined ? <Preloader/> :
-                    <ProfileInfo profile={props.profile}/>
+                    <ProfileInfo {...props}/>
                 }
                 <FeedContainer />
 

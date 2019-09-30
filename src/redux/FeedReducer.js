@@ -1,12 +1,14 @@
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
 const TEXT_FIELD_POST_CHANGE = 'TEXT-FIELD-POST-CHANGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
-
+const SET_USER_STATUS = 'SET_USER_STATUS';
+const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
 
 let initialState = {
     profile: {},
+    status: '',
     myFeed: [
         {
             id: 9001,
@@ -61,6 +63,11 @@ const feedReducer = (state = initialState, action) => {
                 ...state,
                 profile: action.profile,
             };
+        case SET_USER_STATUS:
+            return {
+                ...state,
+                status: action.status,
+            };
 
         default:
             return state;
@@ -79,10 +86,29 @@ export const onPostChangeActionCreator = (text) => {
 export const _setUserProfile = (profile) => {
     return ({type: SET_USER_PROFILE, profile: profile })
 };
+export const _setUserStatus = (status) => {
+    return ({type: SET_USER_STATUS, status: status })
+};
 export const uploadUserProfile = (userId) => (dispatch) => {
-    usersAPI.uploadUser(userId)
+    profileAPI.uploadUser(userId)
         .then(data => {
             dispatch(_setUserProfile(data));
+        });
+};
+export const uploadUserStatus = (userId) => (dispatch) => {
+    profileAPI.uploadStatus(userId)
+        .then(data => {
+            if (data) {
+                dispatch(_setUserStatus(data));
+            }
+        });
+};
+export const updateUserStatus = (newStatus) => (dispatch) => {
+    profileAPI.updateStatus(newStatus)
+        .then(res => {
+            if (res.resultCode === 0){
+                dispatch(_setUserStatus(newStatus));
+            }
         });
 };
 

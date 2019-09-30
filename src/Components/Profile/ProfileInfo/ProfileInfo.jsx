@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './ProileInfo.module.css'
 import avatarBig from '../../../assets/images/img_avatar_big.png'
+import ProfileInfoStatus from "./ProfileInfoStatus";
 
 const ProfileInfo = (props) => {
     return (
@@ -13,13 +14,18 @@ const ProfileInfo = (props) => {
 
             <div className={style.PersonStats}>
                 <h3>{props.profile.fullName !== undefined ? props.profile.fullName: 'Name'}</h3>
-                <p>{props.profile.aboutMe !== undefined ? props.profile.aboutMe: 'About'}</p>
+                <ProfileInfoStatus
+                    userId={props.profile.userId}
+                    status={props.status}
+                    uploadUserStatus={props.uploadUserStatus}
+                    updateUserStatus={props.updateUserStatus}
+                />
                 <p>{props.profile.userId !== undefined ? props.profile.userId : 'userId'}</p>
                 <p>{props.profile.lookingForAJobDescription !== undefined ? props.profile.lookingForAJobDescription: 'discription'}</p>
             </div>
         </div>
     );
-}
+};
 
 
 export default ProfileInfo;

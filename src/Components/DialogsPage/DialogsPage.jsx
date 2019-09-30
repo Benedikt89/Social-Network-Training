@@ -3,6 +3,7 @@ import style from './DialogsPage.module.css';
 import CurrentDialogContainer from "./CurrentDialog/CurrentDialogConainer";
 import DialogListContainer from "./DialogsList/DialogListContainer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 
@@ -17,6 +18,4 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
         );
     };
 
-let AuthRedirect = withAuthRedirect(DialogsPage);
-
-export default AuthRedirect;
+export default compose(withAuthRedirect)(DialogsPage);
