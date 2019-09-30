@@ -19,10 +19,6 @@ export const usersAPI = {
                 return res.data.resultCode;
             });
     },
-    uploadUser (userId) {
-        profileAPI.uploadUser(userId);
-        console.error('use old method')
-    },
 };
 
 export const profileAPI = {

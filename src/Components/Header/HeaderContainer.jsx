@@ -9,6 +9,10 @@ class HeaderContainer extends React.Component {
         this.props.getAuthUserData();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+            this.props.getAuthUserData()
+    }
+
     render() {
         return (
             <Header login={this.props.login}/>

@@ -106,7 +106,7 @@ export const uploadUserStatus = (userId) => (dispatch) => {
 export const updateUserStatus = (newStatus) => (dispatch) => {
     profileAPI.updateStatus(newStatus)
         .then(res => {
-            if (res.resultCode === 0){
+            if (res === 0){
                 dispatch(_setUserStatus(newStatus));
             }
         });

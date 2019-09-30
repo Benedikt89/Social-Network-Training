@@ -7,6 +7,12 @@ class ProfileInfoStatus extends React.Component {
         currentValue: this.props.status,
     };
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({currentValue: this.props.status})
+        }
+    }
+
     activateEditMode() {
         this.setState({
             editMode: true,

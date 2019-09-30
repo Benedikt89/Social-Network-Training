@@ -8,13 +8,24 @@ import {compose} from "redux";
 
  class ProfileContainer extends React.Component {
 
+     state = {
+         userId: this.props.match.params.userId
+     };
+
      componentDidMount() {
-         let userId = this.props.match.params.userId;
-         if (!userId) {
-             userId = 2
+         if (!this.state.userId) {
+             this.setState({userId: 2})
          }
-         this.props.uploadUserProfile(userId);
-         this.props.uploadUserStatus(userId);
+         this.props.uploadUserProfile(this.state.userId);
+         this.props.uploadUserStatus(this.state.userId);
+     }
+
+     componentDidUpdate(prevProps, prevState, snapshot) {
+         if (this.props.match.params.userId !== this.state.userId) {
+             this.setState({userId: this.props.match.params.userId});
+             this.props.uploadUserProfile(this.props.match.params.userId);
+             this.props.uploadUserStatus(this.props.match.params.userId);
+         }
      }
 
      render() {

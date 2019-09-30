@@ -20,7 +20,7 @@ const FriendsNav = (props) => {
             </div>
 
             <div className={style.ava}>
-            <NavLink to="/Profile/888">
+            <NavLink to="/Profile/1571">
                 <img src={props.friends[2].avatarImage}/>
             </NavLink>
             </div>
