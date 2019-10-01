@@ -1,7 +1,10 @@
 .item {
     color: #3dff05;
 }
-
+.error {
+    color: red;
+    font-weight: bold;
+}
 /*.Profile{*/
 /*    background-color: #4d7cae;*/
 /*    border: 1px solid #212941;*/

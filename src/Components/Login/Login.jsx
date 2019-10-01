@@ -42,6 +42,9 @@ const LoginForm = (props) => {
                     <Field component={"input"} name={"captcha"} type={"checkbox"}/>
                     <span>captcha</span>
                 </div>
+                {props.error && <div>
+                    <span className={style.error}>{props.error}</span>
+                </div>}
                 <div>
                     <button>LOGIN</button>
                 </div>

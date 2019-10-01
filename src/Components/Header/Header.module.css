@@ -26,3 +26,6 @@
 .lable img {
     width: 50px;
 }
+.user {
+    cursor: pointer;
+}

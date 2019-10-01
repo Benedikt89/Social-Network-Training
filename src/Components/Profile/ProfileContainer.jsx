@@ -14,7 +14,7 @@ import {compose} from "redux";
 
      componentDidMount() {
          if (!this.state.userId) {
-             this.setState({userId: 2})
+             this.setState({userId: this.props.authorizedId})
          }
          this.props.uploadUserProfile(this.state.userId);
          this.props.uploadUserStatus(this.state.userId);
@@ -39,10 +39,11 @@ import {compose} from "redux";
      return ({
          profile: state.feedReducer.profile,
          status: state.feedReducer.status,
+         authorizedId: state.auth.userId,
      });
  };
 
 export default compose(
     connect(mapStateToProps, {uploadUserProfile, uploadUserStatus, updateUserStatus}),
-    // withAuthRedirect,
+    withAuthRedirect,
     withRouter)(ProfileContainer);
