@@ -65,7 +65,7 @@ export const login = (data) => (dispatch) => {
                 getAuthUserData();
             } else {
                 let message = res.messages.length > 0 ? res.messages[0] :"some error";
-                dispatch(stopSubmit('contact', {_error: message}))
+                dispatch(stopSubmit('login', {_error: message}))
             }
         })
 };

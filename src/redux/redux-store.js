@@ -6,6 +6,7 @@ import friendsReducer from "./FriendsReducer";
 import authReducer from "./AuthReducer";
 import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from "redux-form";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 let reducers = combineReducers({
     auth: authReducer,
@@ -16,7 +17,7 @@ let reducers = combineReducers({
     form: formReducer,
 });
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+let store = createStore(reducers, composeWithDevTools(applyMiddleware(thunkMiddleware)));
 
 window.store = store;
 

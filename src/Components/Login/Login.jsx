@@ -59,7 +59,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-const LoginReduxForm = reduxForm({form: 'contact'})(LoginForm);
+const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 
 export default compose(
     connect(mapStateToProps, {login, logOut, getAuthUserData})
