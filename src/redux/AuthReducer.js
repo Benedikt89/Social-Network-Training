@@ -57,12 +57,12 @@ export const getAuthUserData = () => (dispatch) => {
         })
 };
 export const login = (data) => (dispatch) => {
-    authAPI.login(data)
+    return authAPI.login(data)
         .then( res => {
             if (res.resultCode === 0) {
                 console.log(res);
                 dispatch(_login);
-                getAuthUserData();
+                dispatch(getAuthUserData());
             } else {
                 let message = res.messages.length > 0 ? res.messages[0] :"some error";
                 dispatch(stopSubmit('login', {_error: message}))

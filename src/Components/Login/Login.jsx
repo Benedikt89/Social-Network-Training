@@ -16,12 +16,14 @@ const Login = (props) => {
         props.logOut();
     };
     return (
+        <>
+        {props.isAuth ? <Redirect to={`/Profile/${props.loginnedId}`}/>:
         <div className={style.item}>
             <h2>LOGIN {props.loginName}</h2>
-            {props.isAuth&&<Redirect to={'/Profile'}/>}
             {props.isAuth&&<button onClick={logOut}>LOG OUT</button>}
             <LoginReduxForm onSubmit={onSubmit}/>
-        </div>
+        </div>}
+        </>
     );
 };
 
@@ -55,6 +57,7 @@ const LoginForm = (props) => {
 const mapStateToProps = (state) => {
     return{
         isAuth: state.auth.isAuth,
+        loginnedId: state.auth.userId,
         loginName: state.auth.login,
     }
 }
