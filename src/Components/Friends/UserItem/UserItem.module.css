@@ -7,9 +7,10 @@
     color: #ffffff;
     font-size: 22px;
     font-family: roboto;
+    grid-template-columns: 80px 90px 1fr;
     grid-template-areas:
-            "ava button label preview2"
-            "ava . preview preview3";
+            "ava button label"
+            "ava . preview";
     display: grid;
 
 }
@@ -25,17 +26,17 @@
 .Preview {
     grid-area: preview;
     font-size: smaller;
+    display: flex;
+    flex-direction: row;
 }
-.Preview2 {
-    grid-area: preview2;
-    font-size: smaller;
-}
-.Preview3 {
-    grid-area: preview3;
-    font-size: smaller;
+.Preview > div{
+    padding: 10px;
 }
 .follow{
     grid-area: button;
+}
+.follow > button:disabled {
+    color: red;
 }
 .Ava {
     margin-right: 10px;

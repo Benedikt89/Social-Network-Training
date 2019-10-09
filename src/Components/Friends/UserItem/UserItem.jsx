@@ -32,15 +32,16 @@ const UserItem = (props) => {
             </div>
 
             <div className={style.Preview}>
-                {'id ' + props.id}
-            </div>
-            <div className={style.Preview2}>
-                {props.status}
-            </div>
-            <div className={style.Preview3}>
-                {props.age}
-            </div>
+                <div>
+                    {'id ' + props.id}
+                </div>
+                <div>
+                    <span>{props.status?props.status: 'no status'}</span>
+                </div>
+                <div>
 
+                </div>
+            </div>
         </div>
 
     );

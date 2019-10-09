@@ -12,9 +12,8 @@ let Friends = (props) => {
                 name={user.name !== undefined ? user.name : 'none'}
                 avatarImg={user.photos.small != null ? user.photos.small : userPhoto}
                 followed={user.followed}
-                profession={user.profession}
+                status={user.status}
                 id={user.id}
-                age={user.age}
                 followUserProgress={props.followUserProgress}
                 followUser={props.followUser}
                 unFollow={props.unFollow}

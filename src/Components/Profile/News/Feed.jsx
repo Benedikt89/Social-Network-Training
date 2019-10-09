@@ -4,7 +4,7 @@ import Post from "./Feed-line/Post";
 import NewPost from "./NewPost/NewPost";
 import NewPostContainer from "./NewPost/NewPostContainer";
 
-    const Feed = (props) => {
+    const Feed = React.memo(props => {
 
         let myFeedPosts = props.myFeed.map(
             post => <Post
@@ -14,7 +14,7 @@ import NewPostContainer from "./NewPost/NewPostContainer";
                 likeCount={post.likeCount}
             />
         );
-
+        console.log('render');
         return (
 
 
@@ -28,7 +28,7 @@ import NewPostContainer from "./NewPost/NewPostContainer";
             </div>
 
         );
-    };
+    });
 
 
 export default Feed;

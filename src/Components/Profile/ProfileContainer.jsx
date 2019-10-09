@@ -13,7 +13,7 @@ import {compose} from "redux";
      };
 
      componentDidMount() {
-         if (!this.state.userId) {
+         if (this.state.userId === undefined || this.state.userId === null) {
              this.setState({userId: this.props.authorizedId})
          }
          this.props.uploadUserProfile(this.state.userId);

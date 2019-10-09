@@ -1,17 +1,23 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {
-    follow, getUsers,
+    follow, requestUsers,
     selectPage,
     unFollow
 } from "../../redux/FriendsReducer";
 import Friends from "./Friends";
 import Preloader from "../Common/Preloader";
+import {
+    getCurrentPage,
+    getFollowUserProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/usersSelectors";
 
 
 class FriendsAPI extends React.Component {
-
-    pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
@@ -31,6 +37,7 @@ class FriendsAPI extends React.Component {
     };
 
     render() {
+        let pagesCount = Math.ceil(this.props.totalUsersCount/this.props.pageSize);
 
         return (
             <>
@@ -39,7 +46,7 @@ class FriendsAPI extends React.Component {
                         followUserProgress={this.props.followUserProgress}
                         users={this.props.users}
                         currentPage={this.props.currentPage}
-                        pagesCount={this.pagesCount}
+                        pagesCount={pagesCount}
                         selectPage={this.selectPage}
                         followUser={this.follow}
                         unFollow={this.unFollow}
@@ -53,18 +60,18 @@ class FriendsAPI extends React.Component {
 
 let mapStateToProps = (state) => {
     return{
-        users: state.friendsReducer.users,
-        pageSize: state.friendsReducer.pageSize,
-        totalUsersCount: state.friendsReducer.totalUsersCount,
-        currentPage: state.friendsReducer.currentPage,
-        isFetching: state.friendsReducer.isFetching,
-        followUserProgress: state.friendsReducer.followUserProgress,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followUserProgress: getFollowUserProgress(state),
     }
 };
 
 let FriendsContainer = connect(mapStateToProps, {
     follow, selectPage, unFollow,
-    getUsers})(FriendsAPI);
+    getUsers: requestUsers})(FriendsAPI);
 
 
 export default FriendsContainer;

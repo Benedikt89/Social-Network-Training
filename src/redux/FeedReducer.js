@@ -4,7 +4,7 @@ const ADD_POST = 'ADD-POST';
 const TEXT_FIELD_POST_CHANGE = 'TEXT-FIELD-POST-CHANGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
-const UPDATE_USER_STATUS = 'UPDATE_USER_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 let initialState = {
     profile: {},
@@ -24,14 +24,6 @@ let initialState = {
             likeCount: 2,
             avatarImage: 'https://playjoor.com/assets/avatar/jenny.jpg',
         },
-        {
-            id: 9003,
-            userId: 1,
-            content: 'How long, how long will i slide?',
-            likeCount: 11,
-            avatarImage: 'https://www.w3schools.com/howto/img_avatar2.png',
-        }
-
     ],
     newPostText: 'asd',
 };
@@ -58,6 +50,11 @@ const feedReducer = (state = initialState, action) => {
                 myFeed: [newPost, ...state.myFeed],
                 newPostText: '',
             };
+        case DELETE_POST:
+            return {
+                ...state,
+                myFeed: state.myFeed.filter(f=> f.id !== action.postId)
+            };
         case SET_USER_PROFILE:
             return {
                 ...state,
@@ -78,6 +75,11 @@ const feedReducer = (state = initialState, action) => {
 export const addPost = (text) => {
     return ({
         type: ADD_POST, text
+    })
+};
+export const deletePost = (postId) => {
+    return ({
+        type: DELETE_POST, postId
     })
 };
 export const _setUserProfile = (profile) => {

@@ -49,7 +49,7 @@ const _login = () => {
 };
 
 export const getAuthUserData = () => (dispatch) => {
-    authAPI.getAuth()
+    return authAPI.getAuth()
         .then( data => {
             if (data.resultCode === 0) {
                 dispatch(_setAuthUserData(data.data.id, data.data.email, data.data.login, true));
