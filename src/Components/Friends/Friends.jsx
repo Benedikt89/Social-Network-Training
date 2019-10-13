@@ -4,7 +4,7 @@ import UserItem from "./UserItem/UserItem";
 import Paginator from "../Common/Paginator/Paginator";
 
 
-let Friends = ({users, followUserProgress, followUser, unFollow, selectPage, currentPage, pagesCount}) => {
+let Friends = ({users, followUserProgress, followUser, unFollow, selectPage, currentPage, pageSize, totalUsersCount}) => {
 
     let UserItems = users.map(user =>
         <div key={user.id}>
@@ -20,7 +20,11 @@ let Friends = ({users, followUserProgress, followUser, unFollow, selectPage, cur
         <div className={style.item}>
             <h2 className={style.item}>FRIENDS</h2>
 
-            <Paginator selectPage={selectPage} currentPage={currentPage} pagesCount={pagesCount}/>
+            <Paginator
+                selectPage={selectPage}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                totalUsersCount={totalUsersCount}/>
 
             {UserItems}
         </div>

@@ -31,7 +31,6 @@ class FriendsAPI extends React.Component {
     };
 
     render() {
-        let pagesCount = Math.ceil(this.props.totalUsersCount/this.props.pageSize);
 
         return (
             <>
@@ -41,7 +40,8 @@ class FriendsAPI extends React.Component {
                         followUserProgress={this.props.followUserProgress}
                         users={this.props.users}
                         currentPage={this.props.currentPage}
-                        pagesCount={pagesCount}
+                        totalUsersCount={this.props.totalUsersCount}
+                        pageSize={this.props.pageSize}
                         selectPage={this.selectPage}
                         followUser={this.props.follow}
                         unFollow={this.props.unFollow}
