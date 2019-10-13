@@ -20,20 +20,14 @@ import {
 class FriendsAPI extends React.Component {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        let {currentPage, pageSize} = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
 
     selectPage = (pageNumber) => {
+        let {pageSize} = this.props;
         this.props.selectPage(pageNumber);
-        this.props.getUsers(pageNumber, this.props.pageSize);
-    };
-
-    follow = (userId) => {
-        this.props.follow(userId);
-    };
-
-    unFollow = (userId) => {
-        this.props.unFollow(userId);
+        this.props.getUsers(pageNumber, pageSize);
     };
 
     render() {
@@ -41,22 +35,22 @@ class FriendsAPI extends React.Component {
 
         return (
             <>
-                {this.props.isFetching ? <Preloader/> :
+                {this.props.isFetching ? <Preloader /> :
                     <Friends
+                        key={this.props.users.id}
                         followUserProgress={this.props.followUserProgress}
                         users={this.props.users}
                         currentPage={this.props.currentPage}
                         pagesCount={pagesCount}
                         selectPage={this.selectPage}
-                        followUser={this.follow}
-                        unFollow={this.unFollow}
+                        followUser={this.props.follow}
+                        unFollow={this.props.unFollow}
                     />
                 }
             </>
         );
     }
 }
-
 
 let mapStateToProps = (state) => {
     return{

@@ -1,15 +1,4 @@
 .item {
     color: #3dff05;
 }
-.pageNumber {
-    color: olive;
-    cursor: pointer;
-    padding: 5px;
-}
-.pageNumberSelected {
-    font-weight: bolder;
-    color: olivedrab;
-    cursor: pointer;
-    padding: 5px;
-}
 

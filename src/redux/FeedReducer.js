@@ -1,4 +1,4 @@
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 
 const ADD_POST = 'ADD-POST';
 const TEXT_FIELD_POST_CHANGE = 'TEXT-FIELD-POST-CHANGE';
@@ -53,7 +53,7 @@ const feedReducer = (state = initialState, action) => {
         case DELETE_POST:
             return {
                 ...state,
-                myFeed: state.myFeed.filter(f=> f.id !== action.postId)
+                myFeed: state.myFeed.filter(f => f.id !== action.postId)
             };
         case SET_USER_PROFILE:
             return {
@@ -83,32 +83,28 @@ export const deletePost = (postId) => {
     })
 };
 export const _setUserProfile = (profile) => {
-    return ({type: SET_USER_PROFILE, profile: profile })
+    return ({type: SET_USER_PROFILE, profile: profile})
 };
 export const _setUserStatus = (status) => {
-    return ({type: SET_USER_STATUS, status: status })
+    return ({type: SET_USER_STATUS, status: status})
 };
-export const uploadUserProfile = (userId) => (dispatch) => {
-    profileAPI.uploadUser(userId)
-        .then(data => {
-            dispatch(_setUserProfile(data));
-        });
+
+
+export const uploadUserProfile = (userId) => async (dispatch) => {
+    let data = await profileAPI.uploadUser(userId);
+    dispatch(_setUserProfile(data));
+    let status = await profileAPI.uploadStatus(userId);
+    if (status) {
+        dispatch(_setUserStatus(status));
+    }
 };
-export const uploadUserStatus = (userId) => (dispatch) => {
-    profileAPI.uploadStatus(userId)
-        .then(data => {
-            if (data) {
-                dispatch(_setUserStatus(data));
-            }
-        });
-};
-export const updateUserStatus = (newStatus) => (dispatch) => {
-    profileAPI.updateStatus(newStatus)
-        .then(res => {
-            if (res === 0){
-                dispatch(_setUserStatus(newStatus));
-            }
-        });
+
+export const updateUserStatus = (newStatus) => async (dispatch) => {
+    let res = await profileAPI.updateStatus(newStatus);
+    if (res === 0) {
+        dispatch(_setUserStatus(newStatus));
+    }
+
 };
 
 export default feedReducer;

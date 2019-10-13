@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Route, withRouter} from "react-router-dom";
 import './App.css';
 import Navigate from "./Components/Navigate/Navigate";
 import Footer from "./Components/Footer/Footer";
@@ -10,15 +10,16 @@ import Settings from "./Components/Settings/Settings";
 import FriendsContainer from "./Components/Friends/FriendsContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import Login from "./Components/Login/Login";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import Header from "./Components/Header/Header";
 import { logOut } from "./redux/AuthReducer";
 import {initializeApp} from "./redux/AppReducer";
 import Preloader from "./Components/Common/Preloader";
+import store from "./redux/redux-store";
 
 
-class App extends Component {
+class AppContainer extends Component {
 
     componentDidMount() {
         this.props.initializeApp();
@@ -69,4 +70,13 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default compose( withRouter, connect(mapStateToProps,{initializeApp, logOut}))(App);
+const AppMain = compose( withRouter, connect(mapStateToProps,{initializeApp, logOut}))(AppContainer);
+
+const App = () => (
+    <BrowserRouter>
+        <Provider store={store}>
+            <AppMain />
+        </Provider>
+    </BrowserRouter>
+);
+export default App;

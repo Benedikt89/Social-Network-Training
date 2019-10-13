@@ -1,41 +1,26 @@
 import React from 'react';
 import style from './Friends.module.css';
 import UserItem from "./UserItem/UserItem";
-import userPhoto from "./../../assets/images/avatar-f.png";
+import Paginator from "../Common/Paginator/Paginator";
 
 
-let Friends = (props) => {
+let Friends = ({users, followUserProgress, followUser, unFollow, selectPage, currentPage, pagesCount}) => {
 
-    let UserItems = props.users.map(user =>
-        <div key={user.id + 101}>
+    let UserItems = users.map(user =>
+        <div key={user.id}>
             <UserItem
-                name={user.name !== undefined ? user.name : 'none'}
-                avatarImg={user.photos.small != null ? user.photos.small : userPhoto}
-                followed={user.followed}
-                status={user.status}
-                id={user.id}
-                followUserProgress={props.followUserProgress}
-                followUser={props.followUser}
-                unFollow={props.unFollow}
+                user={user}
+                followUserProgress={followUserProgress}
+                followUser={followUser}
+                unFollow={unFollow}
             />
         </div>);
 
-    let classNameForPages = (i) => props.currentPage !== i ? style.pageNumber : style.pageNumberSelected;
-
-    let pages = [];
-    for (let i = 0; i < props.pagesCount; i++) {
-        pages.push(i + 1);
-    }
     return (
         <div className={style.item}>
             <h2 className={style.item}>FRIENDS</h2>
 
-            {pages.map(p => <span
-                className={classNameForPages(p)}
-                onClick={() => {
-                    props.selectPage(p)
-                }}
-            >{p}</span>)}
+            <Paginator selectPage={selectPage} currentPage={currentPage} pagesCount={pagesCount}/>
 
             {UserItems}
         </div>

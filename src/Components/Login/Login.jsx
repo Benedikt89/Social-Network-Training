@@ -1,51 +1,39 @@
 import React from 'react';
 import style from './Login.module.css'
 import {Field, reduxForm} from "redux-form";
-import {Input} from "../Common/FormsControls/FormsControls";
+import {createField, Input} from "../Common/FormsControls/FormsControls";
 import {requiredField} from "../../utils/validators";
 import {getAuthUserData, login, logOut} from "../../redux/AuthReducer";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 
-const Login = (props) => {
+const Login = ({login, logOut, isAuth, loginnedId, loginName}) => {
     const onSubmit = (formData) => {
-        props.login(formData);
-    };
-    const logOut = () => {
-        props.logOut();
+        login(formData);
     };
     return (
         <>
-        {props.isAuth ? <Redirect to={`/Profile/${props.loginnedId}`}/>:
+        {isAuth ? <Redirect to={`/Profile/${loginnedId}`}/>:
         <div className={style.item}>
-            <h2>LOGIN {props.loginName}</h2>
-            {props.isAuth&&<button onClick={logOut}>LOG OUT</button>}
+            <h2>LOGIN {loginName}</h2>
+            {isAuth&&<button onClick={logOut}>LOG OUT</button>}
             <LoginReduxForm onSubmit={onSubmit}/>
         </div>}
         </>
     );
 };
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
     return (
-            <form onSubmit={props.handleSubmit}>
-                <div>
-                    <Field placeholder={'e-mail'} validate={[requiredField]} name={"email"} type={"email"} component={Input}/>
-                </div>
-                <div>
-                    <Field placeholder={'password'} validate={[requiredField]} name={"password"} type={"password"} component={Input}/>
-                </div>
-                <div>
-                    <Field component={"input"} name={"rememberMe"} type={"checkbox"}/>
-                    <span>rememberMe</span>
-                </div>
-                <div>
-                    <Field component={"input"} name={"captcha"} type={"checkbox"}/>
-                    <span>captcha</span>
-                </div>
-                {props.error && <div>
-                    <span className={style.error}>{props.error}</span>
+            <form onSubmit={handleSubmit}>
+                {createField('e-mail', "email", [requiredField], Input)}
+                {createField('password',"password", [requiredField], Input, {type: "password"})}
+                {createField(null,"rememberMe", null, Input, {type: "checkbox"}, 'rememberMe')}
+                {createField(null,"captcha", null, Input, {type: "checkbox"}, 'captcha')}
+
+                {error && <div>
+                    <span className={style.error}>{error}</span>
                 </div>}
                 <div>
                     <button>LOGIN</button>
@@ -60,7 +48,7 @@ const mapStateToProps = (state) => {
         loginnedId: state.auth.userId,
         loginName: state.auth.login,
     }
-}
+};
 
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 

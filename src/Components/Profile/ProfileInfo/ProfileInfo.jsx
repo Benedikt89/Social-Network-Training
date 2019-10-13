@@ -3,11 +3,11 @@ import style from './ProileInfo.module.css'
 import avatarBig from '../../../assets/images/img_avatar_big.png'
 import ProfileInfoStatus from "./ProfileInfoStatus";
 
-const ProfileInfo = (props) => {
+const ProfileInfo = ({profile, status, updateUserStatus}) => {
     let avatarImg = avatarBig;
-    if (props.profile.photos !== undefined) {
-        if (props.profile.photos.large !== null) {
-            avatarImg = props.profile.photos.large;
+    if (profile.photos !== undefined) {
+        if (profile.photos.large !== null) {
+            avatarImg = profile.photos.large;
         }
     }
 
@@ -18,15 +18,15 @@ const ProfileInfo = (props) => {
             </div>
 
             <div className={style.PersonStats}>
-                <h3>{props.profile.fullName !== undefined ? props.profile.fullName: 'Name'}</h3>
+                <h3>{profile.fullName !== undefined ? profile.fullName: 'Name'}</h3>
                 <ProfileInfoStatus
-                    userId={props.profile.userId}
-                    status={props.status}
-                    updateUserStatus={props.updateUserStatus}
+                    userId={profile.userId}
+                    status={status}
+                    updateUserStatus={updateUserStatus}
                 />
-                <p>{props.profile.userId !== undefined ? props.profile.userId : 'userId'}</p>
-                <p>{props.profile.lookingForAJobDescription !== undefined ?
-                        props.profile.lookingForAJobDescription:
+                <p>{profile.userId !== undefined ? profile.userId : 'userId'}</p>
+                <p>{profile.lookingForAJobDescription !== undefined ?
+                        profile.lookingForAJobDescription:
                         'discription'}
                 </p>
             </div>

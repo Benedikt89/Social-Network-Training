@@ -1,42 +1,41 @@
 import React from 'react';
 import style from './UserItem.module.css'
 import {NavLink} from "react-router-dom";
+import userPhoto from "../../../assets/images/avatar-f.png";
 
 
-const UserItem = (props) => {
+const UserItem = ({user, followUserProgress, unFollow, followUser}) => {
 
-    let path = "/DialogsPage/" + props.id;
-    let avatar = props.avatarImg;
-    let name = props.name;
+    let avatar = user.photos.small != null ? user.photos.small : userPhoto;
 
     return (
-        <div to={path} className={style.item}>
+        <div className={style.item}>
             <div className={style.Ava}>
-                <NavLink to={'/Profile/'+props.id}>
+                <NavLink to={'/Profile/'+user.id}>
                     <img src={avatar}/>
                 </NavLink>
             </div>
             <div className={style.follow}>
-                {!props.followed?
+                {!user.followed?
                     <button
-                        disabled={props.followUserProgress.some(
-                        id => id === props.id)}
-                            onClick={()=>{props.followUser(props.id)}}>Follow</button>
+                        disabled={followUserProgress.some(
+                        id => id === user.id)}
+                            onClick={()=>{followUser(user.id)}}>Follow</button>
                     :<button
-                        disabled={props.followUserProgress.some(
-                            id => id === props.id)}
-                             onClick={()=>{props.unFollow(props.id)}}>UnFollow</button>}
+                        disabled={followUserProgress.some(
+                            id => id === user.id)}
+                             onClick={()=>{unFollow(user.id)}}>UnFollow</button>}
             </div>
             <div className={style.Label}>
-                {name}
+                {user.name !== undefined ? user.name : 'none'}
             </div>
 
             <div className={style.Preview}>
                 <div>
-                    {'id ' + props.id}
+                    {'id ' + user.id}
                 </div>
                 <div>
-                    <span>{props.status?props.status: 'no status'}</span>
+                    <span>{user.status ? user.status: 'no status'}</span>
                 </div>
                 <div>
 

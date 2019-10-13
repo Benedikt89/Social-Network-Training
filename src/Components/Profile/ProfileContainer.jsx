@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {updateUserStatus, uploadUserProfile, uploadUserStatus} from "../../redux/FeedReducer";
+import {updateUserStatus, uploadUserProfile} from "../../redux/FeedReducer";
 import { withRouter } from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -14,17 +14,18 @@ import {compose} from "redux";
 
      componentDidMount() {
          if (this.state.userId === undefined || this.state.userId === null) {
-             this.setState({userId: this.props.authorizedId})
+             this.setState({userId: this.props.authorizedId}, ()=>{
+                 this.props.uploadUserProfile(this.state.userId);
+             });
+         } else {
+             this.props.uploadUserProfile(this.state.userId);
          }
-         this.props.uploadUserProfile(this.state.userId);
-         this.props.uploadUserStatus(this.state.userId);
      }
 
      componentDidUpdate(prevProps, prevState, snapshot) {
          if (this.props.match.params.userId !== this.state.userId) {
              this.setState({userId: this.props.match.params.userId});
              this.props.uploadUserProfile(this.props.match.params.userId);
-             this.props.uploadUserStatus(this.props.match.params.userId);
          }
      }
 
@@ -44,6 +45,6 @@ import {compose} from "redux";
  };
 
 export default compose(
-    connect(mapStateToProps, {uploadUserProfile, uploadUserStatus, updateUserStatus}),
+    connect(mapStateToProps, {uploadUserProfile, updateUserStatus}),
     withAuthRedirect,
     withRouter)(ProfileContainer);
