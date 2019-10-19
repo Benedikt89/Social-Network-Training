@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, Route, withRouter} from "react-router-dom";
 import './App.css';
 import Navigate from "./Components/Navigate/Navigate";
 import Footer from "./Components/Footer/Footer";
-import DialogsPage from "./Components/DialogsPage/DialogsPage";
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
-import FriendsContainer from "./Components/Friends/FriendsContainer";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
 import Login from "./Components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
@@ -17,9 +14,17 @@ import { logOut } from "./redux/AuthReducer";
 import {initializeApp} from "./redux/AppReducer";
 import Preloader from "./Components/Common/Preloader";
 import store from "./redux/redux-store";
+import {withSuspense} from "./hoc/withSuspense.jsx";
 
 
-class AppContainer extends Component {
+//import DialogsPage from "./Components/DialogsPage/DialogsPage";
+
+const DialogsPage = React.lazy(()=> import('./Components/DialogsPage/DialogsPage'));
+const ProfileContainer = React.lazy(()=> import('./Components/Profile/ProfileContainer.jsx'));
+const FriendsContainer = React.lazy(()=> import('./Components/Friends/FriendsContainer.jsx'));
+
+
+class AppMain extends Component {
 
     componentDidMount() {
         this.props.initializeApp();
@@ -40,14 +45,26 @@ class AppContainer extends Component {
                         <main className='appContent'>
 
                             <Route path="/DialogsPage"
-                                   render={() => <DialogsPage/>}/>
+                                   render={ () => {
+                                       return <React.Suspense  fallback={<Preloader/>}>
+                                           <DialogsPage />
+                                       </React.Suspense>
+                                   }}/>
 
                             <Route path="/Profile/:userId?"
-                                   render={() => <ProfileContainer/>}/>
+                                   render={ () => {
+                                       return <React.Suspense  fallback={<Preloader/>}>
+                                           <ProfileContainer />
+                                       </React.Suspense>
+                                   }}/>
 
                             <Route path="/News" render={() => <News/>}/>
                             <Route path="/Music" component={Music}/>
-                            <Route path="/Friends" component={FriendsContainer}/>
+                            <Route path="/Friends" render={ () => {
+                                return <React.Suspense  fallback={<Preloader/>}>
+                                    <FriendsContainer />
+                                </React.Suspense>
+                            }}/>
                             <Route path="/Settings" component={Settings}/>
                             <Route path="/Login" component={Login}/>
 
@@ -70,13 +87,13 @@ const mapStateToProps = (state) => {
     }
 };
 
-const AppMain = compose( withRouter, connect(mapStateToProps,{initializeApp, logOut}))(AppContainer);
+const AppContainer = compose( withRouter, connect(mapStateToProps,{initializeApp, logOut}))(AppMain);
 
 const App = () => (
-    <BrowserRouter>
+    <HashRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
-            <AppMain />
+            <AppContainer />
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
 );
 export default App;
