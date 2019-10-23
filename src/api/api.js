@@ -42,6 +42,24 @@ export const profileAPI = {
                 return res.data.resultCode;
             })
     },
+    updateProfile (profile) {
+        return instanse.put(`profile`, profile)
+            .then( res => {
+                return res.data;
+            })
+    },
+    saveAvatar (photo) {
+        let formData = new FormData();
+        formData.append('image', photo);
+        return instanse.put(`profile/photo`, formData, {
+            headers: {
+                'Content-type': 'multipart/form-data'
+            }
+        })
+            .then( res => {
+                return res.data;
+            })
+    },
 };
 
 export const authAPI = {

@@ -1,7 +1,9 @@
 import {profileAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = 'ADD-POST';
 const TEXT_FIELD_POST_CHANGE = 'TEXT-FIELD-POST-CHANGE';
+const SET_USER_PHOTOS = 'settings/SET_USER_PHOTOS';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 const DELETE_POST = 'DELETE_POST';
@@ -88,7 +90,9 @@ export const _setUserProfile = (profile) => {
 export const _setUserStatus = (status) => {
     return ({type: SET_USER_STATUS, status: status})
 };
-
+export const _setUserStatusSuccess = (photos) => {
+    return ({type: SET_USER_PHOTOS, photos})
+};
 
 export const uploadUserProfile = (userId) => async (dispatch) => {
     let data = await profileAPI.uploadUser(userId);
@@ -106,5 +110,25 @@ export const updateUserStatus = (newStatus) => async (dispatch) => {
     }
 
 };
-
+export const saveProfile = (profile) => async (dispatch, getState) => {
+    const authId = getState().auth.userId;
+    let res = await profileAPI.updateProfile(profile);
+    if (res.resultCode === 0) {
+        dispatch(uploadUserProfile(authId));
+    }else {
+        let message = res.messages.length > 0 ? res.messages[0] : "some error";
+        dispatch(stopSubmit('profile', {_error: message}));
+        return Promise.reject(message);
+    }
+};
+export const saveAvatar = (file) => async (dispatch) => {
+    let res = await profileAPI.saveAvatar(file);
+    if (res.resultCode === 0) {
+        dispatch(_setUserStatusSuccess(res.data));
+    }else {
+        //let message = res.messages.length > 0 ? res.messages[0] : "some error";
+        // dispatch(stopSubmit('profile', {_error: message}));
+        //return Promise.reject(message);
+    }
+};
 export default feedReducer;

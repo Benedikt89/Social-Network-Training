@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {updateUserStatus, uploadUserProfile} from "../../redux/FeedReducer";
+import {saveProfile, updateUserStatus, uploadUserProfile} from "../../redux/FeedReducer";
 import { withRouter } from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -45,6 +45,6 @@ import {compose} from "redux";
  };
 
 export default compose(
-    connect(mapStateToProps, {uploadUserProfile, updateUserStatus}),
+    connect(mapStateToProps, {uploadUserProfile, updateUserStatus, saveProfile}),
     withAuthRedirect,
     withRouter)(ProfileContainer);

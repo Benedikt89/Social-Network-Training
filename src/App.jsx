@@ -37,6 +37,7 @@ class AppMain extends Component {
 
             return (
                 <div className='fullOnImage'>
+                    <div className='fullContainer'>
                     <div className='appWrapper'>
 
                         <Header login={this.props.login} logOut={this.props.logOut}/>
@@ -45,18 +46,10 @@ class AppMain extends Component {
                         <main className='appContent'>
 
                             <Route path="/DialogsPage"
-                                   render={ () => {
-                                       return <React.Suspense  fallback={<Preloader/>}>
-                                           <DialogsPage />
-                                       </React.Suspense>
-                                   }}/>
+                                   render={ withSuspense(DialogsPage) }/>
 
                             <Route path="/Profile/:userId?"
-                                   render={ () => {
-                                       return <React.Suspense  fallback={<Preloader/>}>
-                                           <ProfileContainer />
-                                       </React.Suspense>
-                                   }}/>
+                                   render={ withSuspense(ProfileContainer) }/>
 
                             <Route path="/News" render={() => <News/>}/>
                             <Route path="/Music" component={Music}/>
@@ -72,6 +65,7 @@ class AppMain extends Component {
                         </main>
 
                         <Footer/>
+                    </div>
                     </div>
                 </div>
 

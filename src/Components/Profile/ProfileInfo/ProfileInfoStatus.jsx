@@ -16,6 +16,7 @@ const ProfileInfoStatus = (props) => {
     let deactivateEditMode=() => {
         if (currentInput !== '') {
             setEditMode(false);
+            if (currentInput !== props.status)
             props.updateUserStatus(currentInput);
         }else {
             setEditMode(true);
