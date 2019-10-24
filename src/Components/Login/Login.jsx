@@ -3,14 +3,14 @@ import style from './Login.module.css'
 import {Field, reduxForm} from "redux-form";
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 import {requiredField} from "../../utils/validators";
-import {getAuthUserData, login, logOut} from "../../redux/AuthReducer";
+import {getAuthUserData, getCaptchaUrl, login, logOut} from "../../redux/AuthReducer";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 
-const Login = ({login, logOut, isAuth, loginnedId, loginName}) => {
+const Login = ({login, logOut, isAuth, loginnedId, loginName, captchaUrl, getCaptchaUrl}) => {
     const onSubmit = (formData) => {
-        login(formData);
+        login(formData.email, formData.password, formData.rememberMe, formData.captcha);
     };
     return (
         <>
@@ -18,19 +18,20 @@ const Login = ({login, logOut, isAuth, loginnedId, loginName}) => {
         <div className={style.item}>
             <h2>LOGIN {loginName}</h2>
             {isAuth&&<button onClick={logOut}>LOG OUT</button>}
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl}/>
+            {captchaUrl&&<div><img src={captchaUrl}/> <button onClick={getCaptchaUrl}>refresh</button></div>}
         </div>}
         </>
     );
 };
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captchaUrl}) => {
     return (
             <form onSubmit={handleSubmit}>
                 {createField('e-mail', "email", [requiredField], Input)}
                 {createField('password',"password", [requiredField], Input, {type: "password"})}
                 {createField(null,"rememberMe", null, Input, {type: "checkbox"}, 'rememberMe')}
-                {createField(null,"captcha", null, Input, {type: "checkbox"}, 'captcha')}
+                {captchaUrl && createField(null,"captcha", [requiredField], Input, {})}
 
                 {error && <div>
                     <span className={style.error}>{error}</span>
@@ -47,11 +48,12 @@ const mapStateToProps = (state) => {
         isAuth: state.auth.isAuth,
         loginnedId: state.auth.userId,
         loginName: state.auth.login,
+        captchaUrl: state.auth.captchaUrl
     }
 };
 
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm);
 
 export default compose(
-    connect(mapStateToProps, {login, logOut, getAuthUserData})
+    connect(mapStateToProps, {login, logOut, getAuthUserData, getCaptchaUrl})
 )(Login);

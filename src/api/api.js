@@ -69,8 +69,8 @@ export const authAPI = {
                 return res.data;
             })
     },
-    login (data) {
-        return instanse.post(`auth/login/`, {email: data.email, password: data.password, rememberMe: true, captcha: true})
+    login (email, password, rememberMe = false, captcha = null) {
+        return instanse.post(`auth/login/`, {email, password, rememberMe, captcha})
             .then(res => {
                 return res.data;
             })
@@ -81,4 +81,10 @@ export const authAPI = {
                 return res.data;
             })
     },
+    getCaptchaUrl () {
+        return instanse.get(`security/get-captcha-url`)
+            .then(res => {
+                return res.data;
+            })
+    }
 };

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {HashRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import './App.css';
 import Navigate from "./Components/Navigate/Navigate";
 import Footer from "./Components/Footer/Footer";
@@ -10,7 +10,7 @@ import Login from "./Components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import Header from "./Components/Header/Header";
-import { logOut } from "./redux/AuthReducer";
+import {logOut} from "./redux/AuthReducer";
 import {initializeApp} from "./redux/AppReducer";
 import Preloader from "./Components/Common/Preloader";
 import store from "./redux/redux-store";
@@ -19,53 +19,66 @@ import {withSuspense} from "./hoc/withSuspense.jsx";
 
 //import DialogsPage from "./Components/DialogsPage/DialogsPage";
 
-const DialogsPage = React.lazy(()=> import('./Components/DialogsPage/DialogsPage'));
-const ProfileContainer = React.lazy(()=> import('./Components/Profile/ProfileContainer.jsx'));
-const FriendsContainer = React.lazy(()=> import('./Components/Friends/FriendsContainer.jsx'));
+const DialogsPage = React.lazy(() => import('./Components/DialogsPage/DialogsPage'));
+const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer.jsx'));
+const FriendsContainer = React.lazy(() => import('./Components/Friends/FriendsContainer.jsx'));
 
 
 class AppMain extends Component {
 
+    catchAllUnhandledErrors = (promiseRejectionEvent) => {
+        console.log('some error occured');
+    };
+
     componentDidMount() {
         this.props.initializeApp();
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors());
+    }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors())
     }
 
     render() {
-        if (!this.props.initialized){
-            return (<Preloader />)
+        if (!this.props.initialized) {
+            return (<Preloader/>)
         } else {
 
             return (
                 <div className='fullOnImage'>
                     <div className='fullContainer'>
-                    <div className='appWrapper'>
+                        <div className='appWrapper'>
 
-                        <Header login={this.props.login} logOut={this.props.logOut}/>
-                        <Navigate/>
+                            <Header login={this.props.login} logOut={this.props.logOut}/>
+                            <Navigate/>
 
-                        <main className='appContent'>
+                            <Switch>
+                            <main className='appContent'>
 
-                            <Route path="/DialogsPage"
-                                   render={ withSuspense(DialogsPage) }/>
+                                <Route exact path="/"
+                                       render={()=> <Redirect to={"/Profile"}/>}/>
 
-                            <Route path="/Profile/:userId?"
-                                   render={ withSuspense(ProfileContainer) }/>
+                                <Route path="/DialogsPage"
+                                       render={withSuspense(DialogsPage)}/>
 
-                            <Route path="/News" render={() => <News/>}/>
-                            <Route path="/Music" component={Music}/>
-                            <Route path="/Friends" render={ () => {
-                                return <React.Suspense  fallback={<Preloader/>}>
-                                    <FriendsContainer />
-                                </React.Suspense>
-                            }}/>
-                            <Route path="/Settings" component={Settings}/>
-                            <Route path="/Login" component={Login}/>
+                                <Route path="/Profile/:userId?"
+                                       render={withSuspense(ProfileContainer)}/>
+
+                                <Route path="/News" render={() => <News/>}/>
+                                <Route path="/Music" component={Music}/>
+                                <Route path="/Friends" render={() => {
+                                    return <React.Suspense fallback={<Preloader/>}>
+                                        <FriendsContainer/>
+                                    </React.Suspense>
+                                }}/>
+                                <Route path="/Settings" component={Settings}/>
+                                <Route path="/Login" component={Login}/>
+                                <Route path="*" render={() => <div>Error 404</div>}/>
 
 
-                        </main>
-
-                        <Footer/>
-                    </div>
+                            </main>
+                            </Switch>
+                            <Footer/>
+                        </div>
                     </div>
                 </div>
 
@@ -73,6 +86,7 @@ class AppMain extends Component {
         }
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         userId: state.auth.userId,
@@ -81,12 +95,12 @@ const mapStateToProps = (state) => {
     }
 };
 
-const AppContainer = compose( withRouter, connect(mapStateToProps,{initializeApp, logOut}))(AppMain);
+const AppContainer = compose(withRouter, connect(mapStateToProps, {initializeApp, logOut}))(AppMain);
 
 const App = () => (
     <HashRouter basename={process.env.PUBLIC_URL}>
         <Provider store={store}>
-            <AppContainer />
+            <AppContainer/>
         </Provider>
     </HashRouter>
 );
