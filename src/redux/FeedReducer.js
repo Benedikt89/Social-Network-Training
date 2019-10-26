@@ -95,11 +95,15 @@ export const _setUserStatusSuccess = (photos) => {
 };
 
 export const uploadUserProfile = (userId) => async (dispatch) => {
-    let data = await profileAPI.uploadUser(userId);
-    dispatch(_setUserProfile(data));
-    let status = await profileAPI.uploadStatus(userId);
-    if (status) {
-        dispatch(_setUserStatus(status));
+    try {
+        let data = await profileAPI.uploadUser(userId);
+        dispatch(_setUserProfile(data));
+        let status = await profileAPI.uploadStatus(userId);
+        if (status) {
+            dispatch(_setUserStatus(status));
+        }
+    } catch(error) {
+        debugger;
     }
 };
 
