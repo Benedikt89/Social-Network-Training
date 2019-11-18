@@ -30,22 +30,27 @@ const ProfileInfo = ({profile, status, updateUserStatus, saveProfile, authorized
     };
     return (
 
-        <div className={style.Person}>
-            <div className={style.Avatar}>
-                <img src={avatarImg}/>
+        <div className={style.profileInfoWrapper}>
+                <div className={style.avatarWrapper}>
+                    <img src={avatarImg}/>
+                    <button className={style.editAvaBtn}>edit</button>
+                    <button className={style.avaMenuBtn}>...</button>
+                </div>
+
+            <div className={style.profileStats}>
+                <h3>{profile.fullName !== undefined ? profile.fullName : 'Name'}</h3>
                 <ProfileInfoStatus
                     userId={profile.userId}
                     status={status}
                     updateUserStatus={updateUserStatus}
                 />
+
+                {!editMode ? <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => {
+                        setEditMode(true)
+                    }}/> :
+                    <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>}
+
             </div>
-
-
-            {!editMode ? <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => {
-                    setEditMode(true)
-                }}/> :
-                <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>}
-
         </div>
     );
 };
@@ -58,11 +63,9 @@ const Contact = ({contTitle, contValue}) => {
 const ProfileData = ({profile, isOwner, goToEditMode}) => {
     return (
 
-        <div className={style.PersonStats}>
+        <div>
             {isOwner && <button onClick={goToEditMode}>Edit</button>}
             <div>
-                <h3>{profile.fullName !== undefined ? profile.fullName : 'Name'}</h3>
-
                 <p>{profile.userId !== undefined ? profile.userId : 'userId'}</p>
                 <p>{profile.aboutMe !== null ? profile.aboutMe : 'aboutMe'}</p>
                 <p>{profile.lookingForAJobDescription !== null ?

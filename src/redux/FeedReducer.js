@@ -103,7 +103,7 @@ export const uploadUserProfile = (userId) => async (dispatch) => {
             dispatch(_setUserStatus(status));
         }
     } catch(error) {
-        debugger;
+        console.log(error)
     }
 };
 

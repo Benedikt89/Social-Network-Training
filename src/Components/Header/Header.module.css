@@ -1,31 +1,32 @@
 
 .Header {
     grid-area: h;
-    background-color: rgba(0, 1, 52, 0.95);
-    border: 1px solid #0f1cff;
-    border-radius: 5px;
+    background: #4a76a8;
+    height: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #4872a3;
     font-size: 22px;
     color: #ffffff;
     align-content: center;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 60px 80px 1fr;
-    grid-template-areas: 'lable links .';
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
-
 .links {
-    float: right;
-    grid-area: links;
-
+    padding: 1rem;
 }
-
-.lable {
-    grid-area: lable;
+.label {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    font-size: 2rem;
 }
-.lable img {
+.label img {
     width: 50px;
+    margin-right: 1rem;
 }
+
 .user {
     cursor: pointer;
+    padding: 1rem;
 }

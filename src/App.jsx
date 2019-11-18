@@ -34,6 +34,7 @@ class AppMain extends Component {
         this.props.initializeApp();
         window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors());
     }
+
     componentWillUnmount() {
         window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors())
     }
@@ -44,44 +45,36 @@ class AppMain extends Component {
         } else {
 
             return (
-                <div className='fullOnImage'>
-                    <div className='fullContainer'>
-                        <div className='appWrapper'>
+                <div className='appWrapper'>
+                    <Header login={this.props.login} logOut={this.props.logOut}/>
+                    <Navigate/>
 
-                            <Header login={this.props.login} logOut={this.props.logOut}/>
-                            <Navigate/>
+                    <Switch>
+                        <main className='appContent'>
 
-                            <Switch>
-                            <main className='appContent'>
+                            <Route exact path="/"
+                                   render={() => <Redirect to={"/Profile"}/>}/>
 
-                                <Route exact path="/"
-                                       render={()=> <Redirect to={"/Profile"}/>}/>
+                            <Route path="/DialogsPage"
+                                   render={withSuspense(DialogsPage)}/>
 
-                                <Route path="/DialogsPage"
-                                       render={withSuspense(DialogsPage)}/>
+                            <Route path="/Profile/:userId?"
+                                   render={withSuspense(ProfileContainer)}/>
 
-                                <Route path="/Profile/:userId?"
-                                       render={withSuspense(ProfileContainer)}/>
-
-                                <Route path="/News" render={() => <News/>}/>
-                                <Route path="/Music" component={Music}/>
-                                <Route path="/Friends" render={() => {
-                                    return <React.Suspense fallback={<Preloader/>}>
-                                        <FriendsContainer/>
-                                    </React.Suspense>
-                                }}/>
-                                <Route path="/Settings" component={Settings}/>
-                                <Route path="/Login" component={Login}/>
-                                <Route path="*" render={() => <div>Error 404</div>}/>
-
-
-                            </main>
-                            </Switch>
-                            <Footer/>
-                        </div>
-                    </div>
+                            <Route path="/News" render={() => <News/>}/>
+                            <Route path="/Music" component={Music}/>
+                            <Route path="/Friends" render={() => {
+                                return <React.Suspense fallback={<Preloader/>}>
+                                    <FriendsContainer/>
+                                </React.Suspense>
+                            }}/>
+                            <Route path="/Settings" component={Settings}/>
+                            <Route path="/Login" component={Login}/>
+                            <Route path="*" render={() => <div>Error 404</div>}/>
+                        </main>
+                    </Switch>
+                    <Footer/>
                 </div>
-
             );
         }
     }

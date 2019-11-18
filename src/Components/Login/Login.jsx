@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Login.module.css'
-import {Field, reduxForm} from "redux-form";
+import {reduxForm} from "redux-form";
 import {createField, Input} from "../Common/FormsControls/FormsControls";
 import {requiredField} from "../../utils/validators";
 import {getAuthUserData, getCaptchaUrl, login, logOut} from "../../redux/AuthReducer";

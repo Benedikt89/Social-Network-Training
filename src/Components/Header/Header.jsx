@@ -6,9 +6,12 @@ const Header = (props) => {
     return (
         <header className={style.Header}>
 
-            <div className={style.lable}>
+            <div className={style.label}>
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Inkscape.logo.svg/390px-Inkscape.logo.svg.png"/>
+                    <div>
+                        <span>BEN's Social network Training</span>
+                    </div>
             </div>
 
             <div className={style.links}>
