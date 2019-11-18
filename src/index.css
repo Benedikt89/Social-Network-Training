@@ -48,7 +48,7 @@ button {
 }
 button:hover
 {
-  background-color: #5b90d0;
+  filter: brightness(90%);
 }
 
 link

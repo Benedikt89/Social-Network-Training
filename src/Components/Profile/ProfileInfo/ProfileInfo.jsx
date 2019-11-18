@@ -33,8 +33,16 @@ const ProfileInfo = ({profile, status, updateUserStatus, saveProfile, authorized
         <div className={style.profileInfoWrapper}>
                 <div className={style.avatarWrapper}>
                     <img src={avatarImg}/>
-                    <button className={style.editAvaBtn}>edit</button>
-                    <button className={style.avaMenuBtn}>...</button>
+                    {isOwner && <div className={style.buttonGroup}>
+                    <button
+                        onClick={() => {setEditMode(true)}}
+                    >edit</button>
+                    <button>...</button>
+                    </div>}
+                    {!isOwner && <div className={style.buttonGroup}>
+                        <button>messages</button>
+                        <button>follow</button>
+                    </div>}
                 </div>
 
             <div className={style.profileStats}>
@@ -45,11 +53,9 @@ const ProfileInfo = ({profile, status, updateUserStatus, saveProfile, authorized
                     updateUserStatus={updateUserStatus}
                 />
 
-                {!editMode ? <ProfileData profile={profile} isOwner={isOwner} goToEditMode={() => {
-                        setEditMode(true)
-                    }}/> :
-                    <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>}
-
+                {!editMode ? <ProfileData profile={profile} isOwner={isOwner} /> :
+                    <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
+                }
             </div>
         </div>
     );
@@ -57,28 +63,28 @@ const ProfileInfo = ({profile, status, updateUserStatus, saveProfile, authorized
 export default ProfileInfo;
 
 const Contact = ({contTitle, contValue}) => {
-    return <div><b>{contTitle}</b>: {contValue}</div>
+    return <span><b>{contTitle}:</b><a> {contValue}</a></span>
 };
 
-const ProfileData = ({profile, isOwner, goToEditMode}) => {
+const ProfileData = ({profile}) => {
     return (
 
         <div>
-            {isOwner && <button onClick={goToEditMode}>Edit</button>}
-            <div>
-                <p>{profile.userId !== undefined ? profile.userId : 'userId'}</p>
-                <p>{profile.aboutMe !== null ? profile.aboutMe : 'aboutMe'}</p>
-                <p>{profile.lookingForAJobDescription !== null ?
+            <ul>
+                <li>{profile.userId !== undefined ? profile.userId : 'userId'}</li>
+                <li>{profile.aboutMe !== null ? profile.aboutMe : 'aboutMe'}</li>
+                <li>{profile.lookingForAJobDescription !== null ?
                     profile.lookingForAJobDescription :
                     'no job discription'}
-                </p>
-                <p>{profile.lookingForAJob ?
+                </li>
+                <li>{profile.lookingForAJob ?
                     'LOOKS TO HIDE' :
                     'I have A Job'}
-                </p>
-            </div>
+                </li>
+            </ul>
+
             <div>
-                <h4>Contacts</h4>
+                <title>Contacts</title>
                 {Object.keys(profile.contacts).map(key => {
                     return <Contact key={key} contTitle={key} contValue={profile.contacts[key]}/>
                 })}
