@@ -1,40 +1,22 @@
-
-
-
 .DialogList {
     grid-area: dList;
-    color: #ffffff;
     font-size: 32px;
-    font-family: roboto;
     list-style: none;
     padding-left: 0;
     border-right-style: solid;
     border-right-width: 1px;
 }
-
-.DialogUl {
+.dialogUl {
     padding-left: 10px;
     margin-right: 15px;
 }
-
 .Head {
     grid-area: head;
     text-align: center;
     text-shadow: #212941;
     font-size: 26px;
-
 }
-
 .Head img {
     height: 350px;
     border-radius: 15px;
 }
-/*.Profile{*/
-/*    background-color: #4d7cae;*/
-/*    border: 1px solid #212941;*/
-/*    border-radius: 5px;*/
-/*    padding: 8px 15px;*/
-/*    color: #ffffff;*/
-/*    font-size: 18px;*/
-/*    font-family: roboto;*/
-/*}*/

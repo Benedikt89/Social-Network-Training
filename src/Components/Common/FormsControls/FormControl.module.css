@@ -1,19 +1,15 @@
 .formControl input{
     padding: 5px;
-    background-color: rgba(0, 00, 01, 0.8);
-    color: white;
     grid-area: text;
     border-radius: 5px;
     border-spacing: 200px;
 }
 .formControl textarea{
     padding: 5px;
-    background-color: rgba(0, 00, 01, 0.8);
-    color: white;
     grid-area: text;
     border-radius: 5px;
     border-spacing: 200px;
-    width: -webkit-fill-available;
+    width: 100%;
 }
 .error textarea, .error input{
     border: solid red 1px;

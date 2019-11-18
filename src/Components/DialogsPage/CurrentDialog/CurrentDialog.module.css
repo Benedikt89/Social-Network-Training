@@ -1,25 +1,19 @@
 
 .DialogArea {
     grid-area: currentD;
-
-
-
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+    padding: 1rem;
 }
-
 .NewPost {
-
-    border: 1px solid #e3e573;
-    border-radius: 5px;
-    padding: 8px 15px;
+    border-bottom: 1px solid #e3e4e8;
     color: #000000;
+    padding: 1rem;
     font-size: 22px;
-    font-family: roboto;
-    grid-template-columns: 80px 1fr 1fr;
-
+    grid-template-columns: 80px 1fr;
     grid-template-areas:
             "avatar text"
-            "avatar buttons"
-            ;
+            "avatar buttons";
     display: grid;
 }
 
@@ -31,41 +25,21 @@
 }
 
 .textArea {
-    background-color: rgba(0, 00, 06, 0.9);
-    color: white;
+    width: 100%;
     grid-area: text;
-    border-radius: 5px;
+    border: none;
 }
 
 .buttons {
     grid-area: buttons;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .attachB {
-    width: 80px;
-    padding: 5px;
-    background-color: black;
-    color: white;
-    border: white solid 1px;
-    border-radius: 4px;
     grid-area: button;
 }
 
 .sendB{
-    width: 80px;
-    padding: 5px;
-    background-color: black;
-    color: white;
-    border: white solid 1px;
-    border-radius: 4px;
     grid-area: button;
 }
-/*.Profile{*/
-/*    background-color: #4d7cae;*/
-/*    border: 1px solid #212941;*/
-/*    border-radius: 5px;*/
-/*    padding: 8px 15px;*/
-/*    color: #ffffff;*/
-/*    font-size: 18px;*/
-/*    font-family: roboto;*/
-/*}*/

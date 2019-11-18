@@ -25,7 +25,7 @@ const NewPost = (props) => {
 let NewPostForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field validate={[requiredField, maxLength10]} name={"newPost"} component={Textarea}/>
+            <Field validate={[]} name={"newPost"} component={Textarea}/>
             <button
                 className={style.button}
             >Post</button>

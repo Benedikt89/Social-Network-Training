@@ -5,17 +5,13 @@ import DialogListContainer from "./DialogsList/DialogListContainer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
-
-
-    const DialogsPage = (props) => {
-
-
-        return (
-                    <div className={style.DialogPage}>
-                        <DialogListContainer/>
-                        <CurrentDialogContainer/>
-                    </div>
-        );
-    };
+const DialogsPage = (props) => {
+    return (
+        <div className={style.DialogPage}>
+            <DialogListContainer/>
+            <CurrentDialogContainer/>
+        </div>
+    );
+};
 
 export default compose(withAuthRedirect)(DialogsPage);

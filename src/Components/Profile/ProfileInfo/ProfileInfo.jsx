@@ -70,20 +70,20 @@ const ProfileData = ({profile}) => {
     return (
 
         <div>
-            <ul>
-                <li>{profile.userId !== undefined ? profile.userId : 'userId'}</li>
-                <li>{profile.aboutMe !== null ? profile.aboutMe : 'aboutMe'}</li>
-                <li>{profile.lookingForAJobDescription !== null ?
+            <div className={style.col}>
+                <span>{profile.userId !== undefined ? profile.userId : 'userId'}</span>
+                <span>{profile.aboutMe !== null ? profile.aboutMe : 'aboutMe'}</span>
+                <span>{profile.lookingForAJobDescription !== null ?
                     profile.lookingForAJobDescription :
                     'no job discription'}
-                </li>
-                <li>{profile.lookingForAJob ?
+                </span>
+                <span>{profile.lookingForAJob ?
                     'LOOKS TO HIDE' :
                     'I have A Job'}
-                </li>
-            </ul>
+                </span>
+            </div>
 
-            <div>
+            <div className={style.contacts}>
                 <title>Contacts</title>
                 {Object.keys(profile.contacts).map(key => {
                     return <Contact key={key} contTitle={key} contValue={profile.contacts[key]}/>

@@ -76,14 +76,16 @@
 
 .row
 {
-    composes: container;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     box-sizing: content-box;
 }
 .col
 {
-
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .mainBtn

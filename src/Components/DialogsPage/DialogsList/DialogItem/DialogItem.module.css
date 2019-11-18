@@ -1,38 +1,27 @@
 .item {
-    background-color: rgba(0, 0, 0, 0.9);
-    border: 1px solid #2a425e;
+    background-color: #FFF;
+    box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
     padding: 8px 15px;
     border-radius: 5px;
     margin-top: 10px;
-    color: #ffffff;
     font-size: 22px;
-    font-family: roboto;
     grid-template-areas:
             "ava label"
             "ava preview";
     display: grid;
-
+    color: black;
 }
-
-.item .selected {
-    background-color: rgba(0, 7, 94, 0.9);
-}
-
-.Label {
+.label {
     grid-area: label;
 }
-
 .Preview {
     grid-area: preview;
     font-size: smaller;
-
 }
-
 .Ava {
     margin-right: 10px;
     grid-area: ava;
 }
-
 .Ava img {
     position: relative;
     text-align: center;

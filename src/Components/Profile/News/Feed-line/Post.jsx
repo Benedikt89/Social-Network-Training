@@ -7,14 +7,20 @@ const Post = (props) => {
     return (
 
             <div className={style.item}>
-                <img src={props.avatar}/>
-                {props.message}
-                <div>
-                <span>likes {props.likeCount}</span>
+                <div className={style.row}>
+                    <img src={props.avatar}/>
+                    <span>OWNER</span>
+                </div>
+                <div className={style.postBody}>
+                    {props.message}
+                </div>
+                <div className={style.row}>
+                    <span>likes: </span>
+                    <span>{props.likeCount}</span>
                 </div>
             </div>
     );
-}
+};
 
 
 export default Post;
